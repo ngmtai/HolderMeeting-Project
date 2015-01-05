@@ -1,0 +1,9 @@
+﻿- Fix code AnswerType (yes, no, other).
+- Lấy danh sách cổ đông được mời tham gia đại hội (đọc từ file excel) thêm dzo bảng Holder. Thêm thuộc tính chưa đồng ý (ai xác nhận đi thì bật là true).
+- Form xác nhận tham gia.
+- Form thêm biểu quyết (thêm, sửa, xóa).
+- Form cổ đông biểu quyết (thêm, sửa).
+
+Có 2 form thống kê:
+- Khi cổ đông xác nhận tham gia thì hiển thị tỉ lệ cổ phần tham gia so với tổng cổ phần của cty.
+- Tỉ lệ của các biểu quyết khi cổ đông biểu quyết.
