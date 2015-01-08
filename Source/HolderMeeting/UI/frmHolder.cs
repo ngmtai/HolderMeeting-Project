@@ -46,10 +46,10 @@ namespace UI
             tstt.Text = str;
         }
 
-        void LoadData(string name, string code)
+        void LoadData(string name, string code, string cmnd)
         {
             var holderBusiness = new HolderBusiness();
-            var data = holderBusiness.GetAlls(name, code, null);
+            var data = holderBusiness.GetAlls(name, code, cmnd, null);
             var lstHolder = new List<HolderDto>();
             foreach (var holder in data)
             {
@@ -59,6 +59,7 @@ namespace UI
                     Code = holder.Code,
                     AuthorizerName = holder.AuthorizerName,
                     Name = holder.Name,
+                    CMND = holder.CMND,
                     TotalShare = holder.TotalShare.HasValue ? string.Format("{0:#,###}", holder.TotalShare.Value) : "0",
                     UpdateDate = holder.UpdateDate.HasValue ? holder.UpdateDate.Value.ToShortDateString() : string.Empty,
                     CreateDate = holder.CreateDate.HasValue ? holder.CreateDate.Value.ToShortDateString() : string.Empty,
@@ -82,7 +83,7 @@ namespace UI
                 return;
             }
 
-            LoadData(string.Empty, string.Empty);
+            LoadData(string.Empty, string.Empty, string.Empty);
 
             #region autocomplete
 
@@ -106,6 +107,15 @@ namespace UI
             txtName.AutoCompleteSource = AutoCompleteSource.CustomSource;
             txtName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtName.AutoCompleteCustomSource = customSourceName;
+
+            var cmnd = txtCMND.MaskBox;
+
+            var customSourceCmnd = new AutoCompleteStringCollection();
+            customSourceCmnd.AddRange(hb.GetAllsCmnd().ToArray());
+
+            cmnd.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            cmnd.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmnd.AutoCompleteCustomSource = customSourceCmnd;
 
             #endregion
 
@@ -158,9 +168,12 @@ namespace UI
                         if (hb.UpdateHolder(model))
                         {
                             MessageBox.Show("Cập nhật thành công", "Thông báo", MessageBoxButtons.OK);
-                            LoadData(txtSName.Text.Trim(), txtSCode.Text.Trim());
+                            LoadData(txtSName.Text.Trim(), txtSCode.Text.Trim(), txtCMND.Text.Trim());
 
                             LoadStatusStrip();
+
+                            var frm = new ReportCondition();
+                            frm.LoadForm();
                         }
                         else
                             MessageBox.Show("Lỗi. Thử lại sau", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -171,7 +184,7 @@ namespace UI
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            LoadData(txtSName.Text.Trim(), txtSCode.Text.Trim());
+            LoadData(txtSName.Text.Trim(), txtSCode.Text.Trim(), txtCMND.Text.Trim());
         }
 
         private void txtSCode_KeyDown(object sender, KeyEventArgs e)

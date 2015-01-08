@@ -5,10 +5,10 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9c6f7a57ee8a4c0ca4cbf206aecbc73d" Name="Diagram1">
-        <EntityTypeShape EntityType="HolderMeetingModel.Company" Width="1.5" PointX="0.75" PointY="1.875" />
+        <EntityTypeShape EntityType="HolderMeetingModel.Company" Width="1.5" PointX="0.75" PointY="2" />
         <EntityTypeShape EntityType="HolderMeetingModel.Holder" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="HolderMeetingModel.Holder_Vote" Width="1.5" PointX="5.25" PointY="1.25" />
-        <EntityTypeShape EntityType="HolderMeetingModel.Vote" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="HolderMeetingModel.Vote" Width="1.5" PointX="3" PointY="6.625" />
         <AssociationConnector Association="HolderMeetingModel.FK_Holder_Company" />
         <AssociationConnector Association="HolderMeetingModel.FK_Holder_Vote_Holder" />
         <AssociationConnector Association="HolderMeetingModel.FK_Holder_Vote_Vote" />

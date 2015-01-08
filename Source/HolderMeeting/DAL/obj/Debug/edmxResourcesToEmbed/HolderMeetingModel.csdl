@@ -85,6 +85,7 @@
     <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="UpdateDate" Type="DateTime" Precision="0" />
     <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CMND" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Company" Relationship="HolderMeetingModel.FK_Holder_Company" FromRole="Holder" ToRole="Company" />
     <NavigationProperty Name="Holder_Vote" Relationship="HolderMeetingModel.FK_Holder_Vote_Holder" FromRole="Holder" ToRole="Holder_Vote" />
   </EntityType>

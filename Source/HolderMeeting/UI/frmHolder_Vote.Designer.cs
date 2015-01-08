@@ -65,6 +65,8 @@
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.stTotal = new System.Windows.Forms.StatusStrip();
             this.tstt = new System.Windows.Forms.ToolStripStatusLabel();
+            this.txtCmnd = new DevExpress.XtraEditors.TextEdit();
+            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             ((System.ComponentModel.ISupportInitialize)(this.gridDetail)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridHolderVote)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.holderBindingSource)).BeginInit();
@@ -82,6 +84,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             this.stTotal.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCmnd.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // gridDetail
@@ -143,7 +146,7 @@
             this.gridHolderVote.Name = "gridHolderVote";
             this.gridHolderVote.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.btnRowVote});
-            this.gridHolderVote.Size = new System.Drawing.Size(822, 319);
+            this.gridHolderVote.Size = new System.Drawing.Size(943, 319);
             this.gridHolderVote.TabIndex = 2;
             this.gridHolderVote.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvHolderVote,
@@ -279,11 +282,13 @@
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl2.Location = new System.Drawing.Point(0, 0);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(826, 108);
+            this.panelControl2.Size = new System.Drawing.Size(947, 108);
             this.panelControl2.TabIndex = 2;
             // 
             // groupControl1
             // 
+            this.groupControl1.Controls.Add(this.txtCmnd);
+            this.groupControl1.Controls.Add(this.labelControl3);
             this.groupControl1.Controls.Add(this.btnSearch);
             this.groupControl1.Controls.Add(this.txtSName);
             this.groupControl1.Controls.Add(this.labelControl2);
@@ -292,13 +297,13 @@
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupControl1.Location = new System.Drawing.Point(2, 2);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(822, 104);
+            this.groupControl1.Size = new System.Drawing.Size(943, 104);
             this.groupControl1.TabIndex = 0;
             this.groupControl1.Text = "Tìm kiếm";
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(676, 34);
+            this.btnSearch.Location = new System.Drawing.Point(826, 34);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(82, 38);
             this.btnSearch.TabIndex = 3;
@@ -307,7 +312,7 @@
             // 
             // txtSName
             // 
-            this.txtSName.Location = new System.Drawing.Point(431, 43);
+            this.txtSName.Location = new System.Drawing.Point(316, 43);
             this.txtSName.Name = "txtSName";
             this.txtSName.Size = new System.Drawing.Size(194, 20);
             this.txtSName.TabIndex = 2;
@@ -315,7 +320,7 @@
             // 
             // labelControl2
             // 
-            this.labelControl2.Location = new System.Drawing.Point(353, 46);
+            this.labelControl2.Location = new System.Drawing.Point(238, 46);
             this.labelControl2.Name = "labelControl2";
             this.labelControl2.Size = new System.Drawing.Size(63, 13);
             this.labelControl2.TabIndex = 0;
@@ -325,7 +330,7 @@
             // 
             this.txtSCode.Location = new System.Drawing.Point(99, 43);
             this.txtSCode.Name = "txtSCode";
-            this.txtSCode.Size = new System.Drawing.Size(204, 20);
+            this.txtSCode.Size = new System.Drawing.Size(109, 20);
             this.txtSCode.TabIndex = 1;
             this.txtSCode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSCode_KeyDown);
             // 
@@ -357,7 +362,7 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl1.Location = new System.Drawing.Point(0, 108);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(826, 323);
+            this.panelControl1.Size = new System.Drawing.Size(947, 323);
             this.panelControl1.TabIndex = 3;
             // 
             // stTotal
@@ -366,7 +371,7 @@
             this.tstt});
             this.stTotal.Location = new System.Drawing.Point(2, 299);
             this.stTotal.Name = "stTotal";
-            this.stTotal.Size = new System.Drawing.Size(822, 22);
+            this.stTotal.Size = new System.Drawing.Size(943, 22);
             this.stTotal.TabIndex = 3;
             this.stTotal.Text = "aBc";
             // 
@@ -376,12 +381,27 @@
             this.tstt.Size = new System.Drawing.Size(26, 17);
             this.tstt.Text = "aBc";
             // 
+            // txtCmnd
+            // 
+            this.txtCmnd.Location = new System.Drawing.Point(603, 43);
+            this.txtCmnd.Name = "txtCmnd";
+            this.txtCmnd.Size = new System.Drawing.Size(194, 20);
+            this.txtCmnd.TabIndex = 5;
+            // 
+            // labelControl3
+            // 
+            this.labelControl3.Location = new System.Drawing.Point(536, 46);
+            this.labelControl3.Name = "labelControl3";
+            this.labelControl3.Size = new System.Drawing.Size(33, 13);
+            this.labelControl3.TabIndex = 4;
+            this.labelControl3.Text = "CMND:";
+            // 
             // frmHolder_Vote
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(826, 431);
+            this.ClientSize = new System.Drawing.Size(947, 431);
             this.Controls.Add(this.panelControl1);
             this.Controls.Add(this.panelControl2);
             this.Name = "frmHolder_Vote";
@@ -407,6 +427,7 @@
             this.panelControl1.PerformLayout();
             this.stTotal.ResumeLayout(false);
             this.stTotal.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtCmnd.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -447,6 +468,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn10;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit btnRowVote;
+        private DevExpress.XtraEditors.TextEdit txtCmnd;
+        private DevExpress.XtraEditors.LabelControl labelControl3;
 
     }
 }

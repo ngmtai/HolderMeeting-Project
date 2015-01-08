@@ -17,7 +17,7 @@ namespace UI
             InitializeComponent();
         }
 
-        private void ReportCondition_Load(object sender, EventArgs e)
+        public void LoadForm()
         {
             var cb = new CompanyBusiness();
             var hb = new HolderBusiness();
@@ -31,6 +31,11 @@ namespace UI
             lblShared.Text = "Tổng số cổ phiếu tham gia đại hội: " + string.Format("{0:#,###}", totalShareConfirm);
             lblPercent.Text = "Đạt tỉ lệ: " + Math.Round((decimal)(totalShareConfirm / detail.TotalShare.Value) * 100) +
                               "%";
+        }
+
+        private void ReportCondition_Load(object sender, EventArgs e)
+        {
+            LoadForm();
         }
     }
 }

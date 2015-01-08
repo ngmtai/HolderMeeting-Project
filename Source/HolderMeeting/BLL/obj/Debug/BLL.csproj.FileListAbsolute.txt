@@ -31,3 +31,14 @@ E:\aBc\Work\Apps\HolderMeeting\trunk\Source\HolderMeeting\BLL\bin\Debug\EntityFr
 E:\aBc\Work\Apps\HolderMeeting\trunk\Source\HolderMeeting\BLL\obj\Debug\BLL.csprojResolveAssemblyReference.cache
 E:\aBc\Work\Apps\HolderMeeting\trunk\Source\HolderMeeting\BLL\obj\Debug\BLL.dll
 E:\aBc\Work\Apps\HolderMeeting\trunk\Source\HolderMeeting\BLL\obj\Debug\BLL.pdb
+E:\aBc\Work\Apps\HolderMeeting-Project\trunk\Source\HolderMeeting\BLL\bin\Debug\BLL.dll
+E:\aBc\Work\Apps\HolderMeeting-Project\trunk\Source\HolderMeeting\BLL\bin\Debug\BLL.pdb
+E:\aBc\Work\Apps\HolderMeeting-Project\trunk\Source\HolderMeeting\BLL\bin\Debug\DAL.dll
+E:\aBc\Work\Apps\HolderMeeting-Project\trunk\Source\HolderMeeting\BLL\bin\Debug\EntityFramework.dll
+E:\aBc\Work\Apps\HolderMeeting-Project\trunk\Source\HolderMeeting\BLL\bin\Debug\EntityFramework.SqlServer.dll
+E:\aBc\Work\Apps\HolderMeeting-Project\trunk\Source\HolderMeeting\BLL\bin\Debug\DAL.pdb
+E:\aBc\Work\Apps\HolderMeeting-Project\trunk\Source\HolderMeeting\BLL\bin\Debug\EntityFramework.xml
+E:\aBc\Work\Apps\HolderMeeting-Project\trunk\Source\HolderMeeting\BLL\bin\Debug\EntityFramework.SqlServer.xml
+E:\aBc\Work\Apps\HolderMeeting-Project\trunk\Source\HolderMeeting\BLL\obj\Debug\BLL.csprojResolveAssemblyReference.cache
+E:\aBc\Work\Apps\HolderMeeting-Project\trunk\Source\HolderMeeting\BLL\obj\Debug\BLL.dll
+E:\aBc\Work\Apps\HolderMeeting-Project\trunk\Source\HolderMeeting\BLL\obj\Debug\BLL.pdb

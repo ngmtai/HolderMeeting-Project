@@ -38,6 +38,7 @@
     <EntitySetMapping Name="Holders">
       <EntityTypeMapping TypeName="HolderMeetingModel.Holder">
         <MappingFragment StoreEntitySet="Holder">
+          <ScalarProperty Name="CMND" ColumnName="CMND" />
           <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
           <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
           <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />

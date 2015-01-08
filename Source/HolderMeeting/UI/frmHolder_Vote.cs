@@ -42,10 +42,10 @@ namespace UI
             tstt.Text = str;
         }
 
-        void LoadData(string name, string code)
+        void LoadData(string name, string code, string cmnd)
         {
             var holderBusiness = new HolderBusiness();
-            var data = holderBusiness.GetAlls(name, code, true);
+            var data = holderBusiness.GetAlls(name, code, cmnd, true);
             var lstHolder = new List<HolderDto>();
             var vb = new VoteBusiness();
             var hvb = new HolderVoteBusiness();
@@ -133,6 +133,15 @@ namespace UI
             txtName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             txtName.AutoCompleteCustomSource = customSourceName;
 
+            var cmnd = txtCmnd.MaskBox;
+
+            var customSourceCmnd = new AutoCompleteStringCollection();
+            customSourceCmnd.AddRange(hb.GetAllsCmnd().ToArray());
+
+            cmnd.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            cmnd.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmnd.AutoCompleteCustomSource = customSourceCmnd;
+
             #endregion
 
             LoadStatusStrip();
@@ -146,7 +155,7 @@ namespace UI
                 return;
             }
 
-            LoadData(txtSName.Text.Trim(), txtSCode.Text.Trim());
+            LoadData(txtSName.Text.Trim(), txtSCode.Text.Trim(), txtCmnd.Text.Trim());
         }
 
         private void btnRowVote_Click(object sender, EventArgs e)
@@ -163,7 +172,7 @@ namespace UI
                     var frmDialog = new HolderVoteDialog { _holderId = holder.Id };
                     var result = frmDialog.ShowDialog();
                     if (result == DialogResult.OK)
-                        LoadData(txtSName.Text.Trim(), txtSCode.Text.Trim());
+                        LoadData(txtSName.Text.Trim(), txtSCode.Text.Trim(), txtCmnd.Text.Trim());
                 }
                 else
                     MessageBox.Show("Cổ đông \"" + holder.Name + "\" đã biểu quyết hoàn tất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);

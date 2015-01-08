@@ -13,6 +13,8 @@ namespace BLL.Model
 
         public string Name { set; get; }
 
+        public string CMND { set; get; }
+
         public string AuthorizerName { set; get; }
 
         public string TotalShare { set; get; }

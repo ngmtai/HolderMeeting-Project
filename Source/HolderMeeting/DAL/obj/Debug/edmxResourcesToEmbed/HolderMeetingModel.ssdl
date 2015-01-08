@@ -25,6 +25,7 @@
     <Property Name="CreateUser" Type="nvarchar" MaxLength="100" />
     <Property Name="UpdateDate" Type="date" />
     <Property Name="UpdateUser" Type="nvarchar" MaxLength="100" />
+    <Property Name="CMND" Type="nvarchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="Holder_Vote">
     <Key>

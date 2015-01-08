@@ -150,11 +150,16 @@ namespace BLL
         /// <history>
         /// 12/6/2014 aBc: create new
         /// </history>
-        public List<Holder> GetAlls(string name, string code, bool? isConfirm)
+        public List<Holder> GetAlls(string name, string code, string cmnd, bool? isConfirm)
         {
             try
             {
-                var aBc = _holderMeetingEntities.Holders.Where(t => t.IsActive == true && (isConfirm == null || t.IsConfirm == isConfirm) && (string.IsNullOrEmpty(name) || t.Name.Contains(name)) && (string.IsNullOrEmpty(code) || t.Code.Contains(code))).OrderBy(t => t.Name);
+                var aBc = _holderMeetingEntities.Holders.Where(t => t.IsActive == true && 
+                    (isConfirm == null || t.IsConfirm == isConfirm) && 
+                    (string.IsNullOrEmpty(name) || t.Name.Contains(name)) && 
+                    (string.IsNullOrEmpty(code) || t.Code.Contains(code)) && 
+                    (string.IsNullOrEmpty(cmnd) || t.CMND.Contains(cmnd)))
+                    .OrderBy(t => t.Name);
                 if (aBc.Any()) return aBc.ToList();
             }
             catch { }
@@ -226,6 +231,27 @@ namespace BLL
 
                 if (aBc.Any())
                     return aBc.Select(t => t.Name).ToList();
+            }
+            catch { }
+
+            return new List<string>();
+        }
+
+        /// <summary>
+        /// Get all CMND
+        /// </summary>
+        /// <returns></returns>
+        /// <history>
+        /// 1/7/2015 aBc: create new
+        /// </history>
+        public List<string> GetAllsCmnd()
+        {
+            try
+            {
+                var aBc = _holderMeetingEntities.Holders.Where(t => t.IsActive == true).OrderBy(t => t.CMND);
+
+                if (aBc.Any())
+                    return aBc.Select(t => t.CMND).ToList();
             }
             catch { }
 
