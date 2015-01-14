@@ -73,17 +73,20 @@ namespace BLL
         /// <param name="code"></param>
         /// <param name="name"></param>
         /// <param name="authorizerName"></param>
+        /// <param name="totalShared"></param>
+        /// <param name="cmnd"></param>
         /// <returns></returns>
         /// <history>
         /// 12/21/2014 aBc: create new
         /// </history>
-        public bool CheckExist(string code, string name, string authorizerName)
+        public bool CheckExist(string code, string name, string authorizerName, decimal totalShared, string cmnd)
         {
             try
             {
                 var aBc =
                     _holderMeetingEntities.Holders.FirstOrDefault(
-                        t => t.Code.Equals(code) && t.Name.Equals(name) && t.AuthorizerName.Equals(authorizerName));
+                        t => t.Code.Equals(code) && t.Name.Equals(name) && t.AuthorizerName.Equals(authorizerName) &&
+                            t.CMND.Equals(cmnd) && t.TotalShare == totalShared);
 
                 return aBc != null && aBc.Id > 0;
             }
@@ -154,10 +157,10 @@ namespace BLL
         {
             try
             {
-                var aBc = _holderMeetingEntities.Holders.Where(t => t.IsActive == true && 
-                    (isConfirm == null || t.IsConfirm == isConfirm) && 
-                    (string.IsNullOrEmpty(name) || t.Name.Contains(name)) && 
-                    (string.IsNullOrEmpty(code) || t.Code.Contains(code)) && 
+                var aBc = _holderMeetingEntities.Holders.Where(t => t.IsActive == true &&
+                    (isConfirm == null || t.IsConfirm == isConfirm) &&
+                    (string.IsNullOrEmpty(name) || t.Name.Contains(name)) &&
+                    (string.IsNullOrEmpty(code) || t.Code.Contains(code)) &&
                     (string.IsNullOrEmpty(cmnd) || t.CMND.Contains(cmnd)))
                     .OrderBy(t => t.Name);
                 if (aBc.Any()) return aBc.ToList();

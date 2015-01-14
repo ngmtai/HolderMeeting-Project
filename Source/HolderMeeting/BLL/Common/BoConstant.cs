@@ -12,8 +12,8 @@ namespace BLL.Common
         {
             public static string ConnectionNonAuthor = "integrated security=True";
             public static string ConnectionAuthorize = "user id={0}; password={1}";
-            public static string ConnectionTemp ="Data source={0};initial catalog=HolderMeeting;{1};MultipleActiveResultSets=True";
-            public static string ConnectionString = "";
+            public static string ConnectionTemp = "Data source={0};initial catalog=HolderMeeting;{1};MultipleActiveResultSets=True";
+            public static string ConnectionString = string.Empty;
         }
 
         public enum AnswerType
