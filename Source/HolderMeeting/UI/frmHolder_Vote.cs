@@ -70,24 +70,15 @@ namespace UI
 
             gridHolderVote.DataSource = lstHolder.OrderBy(t => t.IsVote);
 
-            var lst = new List<HolderVoteDto>()
-            {
-                new HolderVoteDto()
-                {
-                    AnswerName = "aBc",
-                    CreateDate = DateTime.Now,
-                    TotalShared = 10,
-                    VoteName = "def"
-                },
-                new HolderVoteDto()
-                {
-                    AnswerName = "aBc",
-                    CreateDate = DateTime.Now,
-                    TotalShared = 10,
-                    VoteName = "def"
-                }
-            };
+        }
 
+        void ReloadForm()
+        {
+            holderTableAdapter.Connection.ConnectionString = BoConstant.Config.ConnectionString;
+            holder_VoteTableAdapter.Connection.ConnectionString = BoConstant.Config.ConnectionString;
+
+            holderTableAdapter.Fill(holderMeetingDataSet.Holder);
+            holder_VoteTableAdapter.Fill(holderMeetingDataSet.Holder_Vote);
         }
 
         #endregion
@@ -102,11 +93,7 @@ namespace UI
                 return;
             }
 
-            holderTableAdapter.Connection.ConnectionString = BoConstant.Config.ConnectionString;
-            holder_VoteTableAdapter.Connection.ConnectionString = BoConstant.Config.ConnectionString;
-
-            holderTableAdapter.Fill(holderMeetingDataSet.Holder);
-            holder_VoteTableAdapter.Fill(holderMeetingDataSet.Holder_Vote);
+            ReloadForm();
 
             //LoadData(string.Empty, string.Empty);
 
@@ -160,22 +147,36 @@ namespace UI
 
         private void btnRowVote_Click(object sender, EventArgs e)
         {
-            var dataRowView = (DataRowView)gvHolderVote.GetRow(gvHolderVote.FocusedRowHandle);
-            var holder = dataRowView.Row.Table.Rows.Cast<HolderMeetingDataSet.HolderRow>().ToList()[0];
+            try
+            {
+                var dataRowView = (DataRowView)gvHolderVote.GetRow(gvHolderVote.FocusedRowHandle);
+                //var holder = dataRowView.Row.Table.Rows.Cast<HolderMeetingDataSet.HolderRow>().ToList()[0];
 
-            var vb = new VoteBusiness();
-            var hvb = new HolderVoteBusiness();
-
-            if (holder != null && holder.Id > 0)
-                if (hvb.CountVoteByHolder(holder.Id) < vb.CountVoteIsActive())
+                if (dataRowView.Row.ItemArray.Any())
                 {
-                    var frmDialog = new HolderVoteDialog { _holderId = holder.Id };
-                    var result = frmDialog.ShowDialog();
-                    if (result == DialogResult.OK)
-                        LoadData(txtSName.Text.Trim(), txtSCode.Text.Trim(), txtCmnd.Text.Trim());
+                    var id = int.Parse(dataRowView.Row.ItemArray[0].ToString());
+                    var name = dataRowView.Row.ItemArray[2].ToString();
+
+                    var vb = new VoteBusiness();
+                    var hvb = new HolderVoteBusiness();
+
+                    if (id > 0)
+                        if (hvb.CountVoteByHolder(id) < vb.CountVoteIsActive())
+                        {
+                            var frmDialog = new HolderVoteDialog { _holderId = id };
+                            var result = frmDialog.ShowDialog();
+                            if (result == DialogResult.OK)
+                            {
+                                //LoadData(txtSName.Text.Trim(), txtSCode.Text.Trim(), txtCmnd.Text.Trim());
+                                ReloadForm();
+                            }
+                        }
+                        else
+                            MessageBox.Show("Cổ đông \"" + name + "\" đã biểu quyết hoàn tất.", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else
-                    MessageBox.Show("Cổ đông \"" + holder.Name + "\" đã biểu quyết hoàn tất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch { }
         }
 
         private void txtSCode_KeyDown(object sender, KeyEventArgs e)

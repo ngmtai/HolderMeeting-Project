@@ -135,57 +135,57 @@ namespace UI
             }
             catch { }
 
-            if (dt != null)
+            var cb = new CompanyBusiness();
+            var companyModel = cb.Detail();
+            var companyId = 0;
+            if (companyModel != null && companyModel.Id > 0)
+                companyId = companyModel.Id;
+
+            var lstHolder = new List<Holder>();
+            decimal totalShare = 0;
+            for (var i = 0; i < dt.Rows.Count; i++)
             {
-                var cb = new CompanyBusiness();
-                var companyModel = cb.Detail();
-                var companyId = 0;
-                if (companyModel != null && companyModel.Id > 0)
-                    companyId = companyModel.Id;
+                var code = dt.Rows[i]["Code"] != null ? dt.Rows[i]["Code"].ToString() : string.Empty;
+                var authorizerName = dt.Rows[i]["AuthorizerName"] != null
+                    ? dt.Rows[i]["AuthorizerName"].ToString()
+                    : string.Empty;
+                var cmnd = dt.Rows[i]["cmnd"] != null
+                    ? dt.Rows[i]["cmnd"].ToString()
+                    : string.Empty;
+                var name = dt.Rows[i]["Name"] != null ? dt.Rows[i]["Name"].ToString() : string.Empty;
+                if (dt.Rows[i]["TotalShare"] != null &&
+                        !string.IsNullOrEmpty(dt.Rows[i]["TotalShare"].ToString()))
+                    totalShare = decimal.Parse(dt.Rows[i]["TotalShare"].ToString());
 
-                var lstHolder = new List<Holder>();
-                decimal totalShare = 0;
-                for (var i = 0; i < dt.Rows.Count; i++)
-                {
-                    var code = dt.Rows[i]["Code"] != null ? dt.Rows[i]["Code"].ToString() : string.Empty;
-                    var authorizerName = dt.Rows[i]["AuthorizerName"] != null
-                        ? dt.Rows[i]["AuthorizerName"].ToString()
-                        : string.Empty;
-                    var name = dt.Rows[i]["Name"] != null ? dt.Rows[i]["Name"].ToString() : string.Empty;
-                    var hb = new HolderBusiness();
-                    if (!hb.CheckExist(code, name, authorizerName))
+                var hb = new HolderBusiness();
+                if (!hb.CheckExist(code, name, authorizerName, totalShare, cmnd))
+                    lstHolder.Add(new Holder
                     {
-                        if (dt.Rows[i]["TotalShare"] != null &&
-                            !string.IsNullOrEmpty(dt.Rows[i]["TotalShare"].ToString()))
-                            totalShare = decimal.Parse(dt.Rows[i]["TotalShare"].ToString());
-                        lstHolder.Add(new Holder
-                        {
-                            Code = code,
-                            AuthorizerName = authorizerName,
-                            Name = name,
-                            TotalShare = totalShare,
-                            IsActive = true,
-                            IsConfirm = false,
-                            CompanyId = companyId,
-                            CreateDate = DateTime.Now,
-                            CreateUser = "aBc"
-                        });
-                    }
-                }
+                        Code = code,
+                        AuthorizerName = authorizerName,
+                        Name = name,
+                        TotalShare = totalShare,
+                        IsActive = true,
+                        IsConfirm = false,
+                        CompanyId = companyId,
+                        CreateDate = DateTime.Now,
+                        CreateUser = "aBc",
+                        CMND = cmnd
+                    });
+            }
 
-                if (lstHolder.Any())
+            if (lstHolder.Any())
+            {
+                var hb = new HolderBusiness();
+                var result = hb.Saves(lstHolder);
+                if (result)
                 {
-                    var hb = new HolderBusiness();
-                    var result = hb.Saves(lstHolder);
-                    if (result)
-                    {
-                        bgw.Dispose();
-                        btnFile.Enabled = true;
-                        btnStart.Enabled = true;
+                    bgw.Dispose();
+                    btnFile.Enabled = true;
+                    btnStart.Enabled = true;
 
-                        MessageBox.Show("Import thành công", "Thông báo", MessageBoxButtons.OK,
-                            MessageBoxIcon.Information);
-                    }
+                    MessageBox.Show("Import thành công", "Thông báo", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                 }
             }
         }

@@ -118,11 +118,11 @@
             // btnChange
             // 
             this.btnChange.Enabled = false;
-            this.btnChange.Location = new System.Drawing.Point(80, 248);
+            this.btnChange.Location = new System.Drawing.Point(79, 193);
             this.btnChange.Name = "btnChange";
             this.btnChange.Size = new System.Drawing.Size(82, 38);
             this.btnChange.TabIndex = 6;
-            this.btnChange.Text = "Tham dự";
+            this.btnChange.Text = "Lưu";
             this.btnChange.Click += new System.EventHandler(this.btnChange_Click);
             // 
             // txtAuthorizerName
@@ -131,6 +131,7 @@
             this.txtAuthorizerName.Name = "txtAuthorizerName";
             this.txtAuthorizerName.Size = new System.Drawing.Size(206, 20);
             this.txtAuthorizerName.TabIndex = 5;
+            this.txtAuthorizerName.Visible = false;
             this.txtAuthorizerName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAuthorizerName_KeyDown);
             // 
             // chkIsConfirm
@@ -148,6 +149,7 @@
             this.labelControl8.Size = new System.Drawing.Size(80, 13);
             this.labelControl8.TabIndex = 10;
             this.labelControl8.Text = "Người ủy quyền:";
+            this.labelControl8.Visible = false;
             // 
             // labelControl4
             // 

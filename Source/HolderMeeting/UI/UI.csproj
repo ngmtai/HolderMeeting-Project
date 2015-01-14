@@ -132,6 +132,12 @@
     <Compile Include="ReportCondition.Designer.cs">
       <DependentUpon>ReportCondition.cs</DependentUpon>
     </Compile>
+    <Compile Include="TcpChat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TcpChat.Designer.cs">
+      <DependentUpon>TcpChat.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </EmbeddedResource>
@@ -169,6 +175,9 @@
     </Compile>
     <EmbeddedResource Include="ReportCondition.resx">
       <DependentUpon>ReportCondition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TcpChat.resx">
+      <DependentUpon>TcpChat.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config">
       <SubType>Designer</SubType>

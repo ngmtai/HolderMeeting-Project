@@ -4,9 +4,11 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Windows.Forms;
 using BLL.Common;
+using UI.Common;
 
 namespace UI
 {
@@ -33,6 +35,12 @@ namespace UI
                 BoConstant.Config.ConnectionTemp = string.Format(BoConstant.Config.ConnectionTemp, txtIp.Text,
                     BoConstant.Config.ConnectionNonAuthor);
             BoConstant.Config.ConnectionString = BoConstant.Config.ConnectionTemp;
+
+            try
+            {
+                MyConstant.Config.IpAddress = IPAddress.Parse(txtIp.Text.Trim()).ToString();
+            }
+            catch { }
 
             if (BoCommon.IsConnect())
             {

@@ -3,19 +3,25 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
 using BLL;
 using BLL.Common;
 using BLL.Model;
 using DAL;
+using UI.Common;
 
 namespace UI
 {
     public partial class frmHolder : Form
     {
         private int _id;
+        private string _aBc;
+        private string _dEf;
 
         public frmHolder()
         {
@@ -39,11 +45,21 @@ namespace UI
             var totalConfirm = hb.TotalConfirm(null);
             var totalShareIsConfirm = hb.TotalShareIsConfirm(true);
             //var totalShare = hb.TotalShareIsConfirm(null);
-            var totalShare = cb.Detail().TotalShare.Value;
+            var share = cb.Detail().TotalShare;
+            if (share != null)
+            {
+                var totalShare = share.Value;
 
-            var str = "Số cổ đông tham gia: " + string.Format("{0:#,###}", totalIsConfirm) + "/" + string.Format("{0:#,###}", totalConfirm) + " =  " + Math.Round((decimal)totalIsConfirm * 100 / totalConfirm, 2) + "% | Tổng số cổ phiếu tham gia: " +
-                       string.Format("{0:#,###}", totalShareIsConfirm) + "/" + string.Format("{0:#,###}", totalShare) + " =  " + Math.Round((decimal)totalShareIsConfirm * 100 / totalShare, 2) + "%";
-            tstt.Text = str;
+                var countConfirm = string.Format("{0:#,###}", totalShareIsConfirm);
+                var percentTotalShared = Math.Round(totalShareIsConfirm * 100 / totalShare, 2) + "%";
+
+                var str = "Số cổ đông tham gia: " + string.Format("{0:#,###}", totalIsConfirm) + "/" + string.Format("{0:#,###}", totalConfirm) + " =  " + Math.Round((decimal)totalIsConfirm * 100 / totalConfirm, 2) + "% | Tổng số cổ phiếu tham gia: " +
+                          countConfirm + "/" + string.Format("{0:#,###}", totalShare) + " =  " + percentTotalShared;
+                tstt.Text = str;
+
+                _aBc = "Tổng số cổ phiếu tham gia đại hội: " + countConfirm;
+                _dEf = "Đạt tỉ lệ: " + percentTotalShared;
+            }
         }
 
         void LoadData(string name, string code, string cmnd)
@@ -172,8 +188,9 @@ namespace UI
 
                             LoadStatusStrip();
 
-                            var frm = new ReportCondition();
-                            frm.LoadForm();
+                            var form = (ReportCondition)Application.OpenForms["ReportCondition"];
+                            if (form != null)
+                                form.RefreshForm(_aBc, _dEf);
                         }
                         else
                             MessageBox.Show("Lỗi. Thử lại sau", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);

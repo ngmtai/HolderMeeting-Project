@@ -10,7 +10,8 @@ namespace UI.Common
     {
         public class Config
         {
-            
+            public static string IpAddress = string.Empty;
+            public static string KeyWord = "Send";
         }
 
         public enum AnswerType
