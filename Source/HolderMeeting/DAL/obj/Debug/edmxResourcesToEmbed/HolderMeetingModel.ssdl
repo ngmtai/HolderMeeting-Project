@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="HolderMeetingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="DisplayName" Type="nvarchar" MaxLength="300" />
+    <Property Name="TotalShare" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="About" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Holder">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="varchar" MaxLength="50" />
+    <Property Name="Name" Type="nvarchar" MaxLength="200" />
+    <Property Name="TotalShare" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="AuthorizerName" Type="nvarchar" MaxLength="200" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="IsConfirm" Type="bit" />
+    <Property Name="CompanyId" Type="int" />
+    <Property Name="CreateDate" Type="date" />
+    <Property Name="CreateUser" Type="nvarchar" MaxLength="100" />
+    <Property Name="UpdateDate" Type="date" />
+    <Property Name="UpdateUser" Type="nvarchar" MaxLength="100" />
+    <Property Name="CMND" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Holder_Vote">
+    <Key>
+      <PropertyRef Name="HolderId" />
+      <PropertyRef Name="VoteId" />
+    </Key>
+    <Property Name="HolderId" Type="int" Nullable="false" />
+    <Property Name="VoteId" Type="int" Nullable="false" />
+    <Property Name="AnswerType" Type="int" />
+    <Property Name="AnswerName" Type="nvarchar" MaxLength="500" />
+    <Property Name="TotalShare" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreateDate" Type="date" />
+    <Property Name="CreateUser" Type="nvarchar" MaxLength="100" />
+    <Property Name="UpdateDate" Type="date" />
+    <Property Name="UpdateUser" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Vote">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DisplayName" Type="nvarchar" MaxLength="400" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="Order" Type="int" />
+    <Property Name="CreateDate" Type="date" />
+    <Property Name="CreateUser" Type="nvarchar" MaxLength="100" />
+    <Property Name="UpdateDate" Type="date" />
+    <Property Name="UpdateUser" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="FK_Holder_Company">
+    <End Role="Company" Type="Self.Company" Multiplicity="0..1" />
+    <End Role="Holder" Type="Self.Holder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Holder">
+        <PropertyRef Name="CompanyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Holder_Vote_Holder">
+    <End Role="Holder" Type="Self.Holder" Multiplicity="1" />
+    <End Role="Holder_Vote" Type="Self.Holder_Vote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Holder">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Holder_Vote">
+        <PropertyRef Name="HolderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Holder_Vote_Vote">
+    <End Role="Vote" Type="Self.Vote" Multiplicity="1" />
+    <End Role="Holder_Vote" Type="Self.Holder_Vote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vote">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Holder_Vote">
+        <PropertyRef Name="VoteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="HolderMeetingModelStoreContainer">
+    <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Holder" EntityType="Self.Holder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Holder_Vote" EntityType="Self.Holder_Vote" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vote" EntityType="Self.Vote" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Holder_Company" Association="Self.FK_Holder_Company">
+      <End Role="Company" EntitySet="Company" />
+      <End Role="Holder" EntitySet="Holder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Holder_Vote_Holder" Association="Self.FK_Holder_Vote_Holder">
+      <End Role="Holder" EntitySet="Holder" />
+      <End Role="Holder_Vote" EntitySet="Holder_Vote" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Holder_Vote_Vote" Association="Self.FK_Holder_Vote_Vote">
+      <End Role="Vote" EntitySet="Vote" />
+      <End Role="Holder_Vote" EntitySet="Holder_Vote" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
