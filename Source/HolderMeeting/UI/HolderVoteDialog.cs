@@ -241,7 +241,7 @@ namespace UI
             if (hvb.Saves(lstHolderVote))
             {
                 MessageBox.Show("Biểu quyết thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                DialogResult = DialogResult.Yes;
+                DialogResult = DialogResult.OK;
             }
             else
                 MessageBox.Show("Lỗi, vui lòng thử lại sau", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);

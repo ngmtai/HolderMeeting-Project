@@ -22,6 +22,7 @@ namespace UI
         private int _id;
         private string _aBc;
         private string _dEf;
+        private Socket _socket;
 
         public frmHolder()
         {
@@ -188,9 +189,26 @@ namespace UI
 
                             LoadStatusStrip();
 
-                            var form = (ReportCondition)Application.OpenForms["ReportCondition"];
-                            if (form != null)
-                                form.RefreshForm(_aBc, _dEf);
+                            //var form = (ReportCondition)Application.OpenForms["ReportCondition"];
+                            //if (form != null)
+                            //    form.RefreshForm(_aBc, _dEf);
+
+                            #region send message
+
+                            try
+                            {
+                                _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                                var iep = new IPEndPoint(IPAddress.Broadcast, 9050);
+
+                                var str = MyConstant.Config.KeyWord;
+                                var data = Encoding.ASCII.GetBytes(str);
+                                _socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, 1);
+
+                                _socket.SendTo(data, iep);
+                            }
+                            catch { }
+
+                            #endregion
                         }
                         else
                             MessageBox.Show("Lỗi. Thử lại sau", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);

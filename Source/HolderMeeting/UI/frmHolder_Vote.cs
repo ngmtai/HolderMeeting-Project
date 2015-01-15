@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using BLL;
 using BLL.Common;
 using BLL.Model;
-using DAL;
-using UI.HolderMeetingDataSetTableAdapters;
 
 namespace UI
 {
@@ -79,6 +74,8 @@ namespace UI
 
             holderTableAdapter.Fill(holderMeetingDataSet.Holder);
             holder_VoteTableAdapter.Fill(holderMeetingDataSet.Holder_Vote);
+
+            //gridHolderVote.RefreshDataSource();
         }
 
         #endregion
@@ -150,7 +147,6 @@ namespace UI
             try
             {
                 var dataRowView = (DataRowView)gvHolderVote.GetRow(gvHolderVote.FocusedRowHandle);
-                //var holder = dataRowView.Row.Table.Rows.Cast<HolderMeetingDataSet.HolderRow>().ToList()[0];
 
                 if (dataRowView.Row.ItemArray.Any())
                 {
@@ -166,10 +162,7 @@ namespace UI
                             var frmDialog = new HolderVoteDialog { _holderId = id };
                             var result = frmDialog.ShowDialog();
                             if (result == DialogResult.OK)
-                            {
-                                //LoadData(txtSName.Text.Trim(), txtSCode.Text.Trim(), txtCmnd.Text.Trim());
                                 ReloadForm();
-                            }
                         }
                         else
                             MessageBox.Show("Cổ đông \"" + name + "\" đã biểu quyết hoàn tất.", "Thông báo",
