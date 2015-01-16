@@ -11,6 +11,7 @@
     <AssemblyName>UI</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -66,6 +67,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BroadcastReceiver.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BroadcastReceiver.Designer.cs">
+      <DependentUpon>BroadcastReceiver.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BroadcastSend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BroadcastSend.Designer.cs">
+      <DependentUpon>BroadcastSend.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\MyCommon.cs" />
     <Compile Include="Common\MyConstant.cs" />
     <Compile Include="frmAbout.cs">
@@ -138,6 +151,12 @@
     <Compile Include="TcpChat.Designer.cs">
       <DependentUpon>TcpChat.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BroadcastReceiver.resx">
+      <DependentUpon>BroadcastReceiver.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BroadcastSend.resx">
+      <DependentUpon>BroadcastSend.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.cs</DependentUpon>
     </EmbeddedResource>
