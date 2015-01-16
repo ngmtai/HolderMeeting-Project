@@ -36,4 +36,3 @@ E:\aBc\Work\Apps\HolderMeeting-Project\trunk\Source\HolderMeeting\DAL\bin\Debug\
 E:\aBc\Work\Apps\HolderMeeting-Project\trunk\Source\HolderMeeting\DAL\bin\Debug\EntityFramework.SqlServer.xml
 E:\aBc\Work\Apps\HolderMeeting-Project\trunk\Source\HolderMeeting\DAL\obj\Debug\DAL.dll
 E:\aBc\Work\Apps\HolderMeeting-Project\trunk\Source\HolderMeeting\DAL\obj\Debug\DAL.pdb
-E:\aBc\Work\Apps\HolderMeeting-Project\trunk\Source\HolderMeeting\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
