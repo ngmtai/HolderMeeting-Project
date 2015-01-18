@@ -111,15 +111,17 @@ namespace BLL
                 if (aBc != null)
                 {
                     aBc.AuthorizerName = model.AuthorizerName;
-                    aBc.IsActive = model.IsActive;
+                    aBc.IsConfirm = model.IsConfirm;
                     aBc.Name = model.Name;
+                    aBc.CMND = model.CMND;
+                    aBc.Code = model.Code;
                     aBc.TotalShare = model.TotalShare;
                     aBc.UpdateDate = model.UpdateDate;
                     aBc.UpdateUser = model.UpdateUser;
-                }
 
-                _holderMeetingEntities.SaveChanges();
-                return true;
+                    _holderMeetingEntities.SaveChanges();
+                    return true;
+                }
             }
             catch { }
 
@@ -186,7 +188,7 @@ namespace BLL
                 if (aBc != null)
                 {
                     aBc.IsConfirm = model.IsConfirm;
-                    aBc.AuthorizerName = model.AuthorizerName;
+                    //aBc.AuthorizerName = model.AuthorizerName;
                     aBc.UpdateDate = DateTime.Now;
 
                     _holderMeetingEntities.SaveChanges();

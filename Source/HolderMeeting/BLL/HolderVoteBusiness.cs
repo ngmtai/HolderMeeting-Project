@@ -115,5 +115,56 @@ namespace BLL
 
             return false;
         }
+
+        /// <summary>
+        /// Get total share by answerType
+        /// </summary>
+        /// <param name="answerType"></param>
+        /// <param name="voteId"></param>
+        /// <returns></returns>
+        /// <history>
+        /// 1/17/2015 aBc: create new
+        /// </history>
+        public decimal TotalSharedByAnswerType(int answerType, int voteId)
+        {
+            try
+            {
+                var aBc = _holderMeetingEntities.Holder_Vote.Where(t => t.VoteId == voteId && t.AnswerType == answerType && t.IsActive == true).Select(t => t.TotalShare).ToList();
+                decimal total = 0;
+                foreach (var item in aBc)
+                    total += item.Value;
+                return total;
+            }
+            catch { }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Get top answerName by other
+        /// </summary>
+        /// <param name="top"></param>
+        /// <param name="answerTypeId"></param>
+        /// <param name="voteId"></param>
+        /// <returns></returns>
+        /// <history>
+        /// 1/17/2015 aBc: create new
+        /// </history>
+        public List<string> GetTopAnswerName(int top, int answerTypeId, int voteId)
+        {
+            try
+            {
+                return
+                    _holderMeetingEntities.Holder_Vote.OrderByDescending(t => t.TotalShare)
+                        .Where(t => t.AnswerType == answerTypeId && t.VoteId == voteId && t.IsActive == true)
+                        .Select(t => t.AnswerName)
+                        .Skip(0)
+                        .Take(top)
+                        .ToList();
+            }
+            catch { }
+
+            return new List<string>();
+        }
     }
 }
