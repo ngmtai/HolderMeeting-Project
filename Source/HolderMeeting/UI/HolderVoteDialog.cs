@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using BLL;
 using DAL;
@@ -22,7 +19,7 @@ namespace UI
 
         #region variables
 
-        public int _holderId;
+        public int HolderId;
         private decimal _currentShared;
         private int _loY;
 
@@ -147,9 +144,11 @@ namespace UI
 
         #endregion
 
+        #region event
+
         private void HolderVoteDialog_Load(object sender, EventArgs e)
         {
-            LoadDetail(_holderId);
+            LoadDetail(HolderId);
             var vb = new VoteBusiness();
             var votes = vb.GetAlls(true);
             if (votes.Any())
@@ -168,12 +167,14 @@ namespace UI
             if (votes.Any())
                 for (var i = 0; i < votes.Count; i++)
                 {
+                    var blAnswer = false;
                     var holderVote = new Holder_Vote();
                     var radYes = (RadioButton)Controls.Find("rad" + votes[i].Id + "Yes", true)[0];
                     if (radYes.Checked)
                     {
                         holderVote.AnswerType = (int)MyConstant.AnswerType.Yes;
                         holderVote.AnswerName = "Đồng ý";
+                        blAnswer = true;
                     }
                     else
                     {
@@ -182,6 +183,7 @@ namespace UI
                         {
                             holderVote.AnswerType = (int)MyConstant.AnswerType.No;
                             holderVote.AnswerName = "Không đồng ý";
+                            blAnswer = true;
                         }
                         else
                         {
@@ -193,40 +195,40 @@ namespace UI
                                 if (string.IsNullOrEmpty(txt.Text))
                                     msg += "\nBiểu quyết " + (i + 1) + ":\n - Phải nhập ý kiến khác.";
                                 else
+                                {
                                     holderVote.AnswerName = txt.Text.Trim();
+                                    blAnswer = true;
+                                }
                             }
-                            else
-                                msg += "\nBiểu quyết " + (i + 1) + ":\n - Chưa chọn câu trả lời.";
+                            //else
+                            //    msg += "\nBiểu quyết " + (i + 1) + ":\n - Chưa chọn câu trả lời.";
                         }
                     }
 
-                    if (holderVote.AnswerType.HasValue)
+                    if (holderVote.AnswerType.HasValue && blAnswer)
                     {
                         var mtb = (MaskedTextBox)Controls.Find("mtb" + votes[i].Id, true)[0];
                         var totalShare = mtb.Text.Replace(",", "");
                         if (string.IsNullOrEmpty(totalShare.Trim()))
-                            msg += "\nBiểu quyết " + (i + 1) + ":\n - Phải nhập số lượng cổ phiếu biểu quyết.";
+                            totalShare = "0";
+                        holderVote.TotalShare = decimal.Parse(totalShare.Trim());
+
+                        shared += holderVote.TotalShare.Value;
+
+                        if (shared <= _currentShared)
+                        {
+                            holderVote.VoteId = votes[i].Id;
+                            holderVote.IsActive = true;
+                            holderVote.CreateDate = DateTime.Now;
+                            holderVote.HolderId = HolderId;
+
+                            lstHolderVote.Add(holderVote);
+                        }
                         else
                         {
-                            holderVote.TotalShare = decimal.Parse(totalShare.Trim());
-
-                            shared += holderVote.TotalShare.Value;
-
-                            if (shared <= _currentShared)
-                            {
-                                holderVote.VoteId = votes[i].Id;
-                                holderVote.IsActive = true;
-                                holderVote.CreateDate = DateTime.Now;
-                                holderVote.HolderId = _holderId;
-
-                                lstHolderVote.Add(holderVote);
-                            }
-                            else
-                            {
-                                MessageBox.Show("Số lượng cổ phiếu vượt quá số lượng cổ phiếu hiện có", "Thông báo",
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
+                            MessageBox.Show("Số lượng cổ phiếu vượt quá số lượng cổ phiếu hiện có", "Thông báo",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
                         }
                     }
                 }
@@ -283,5 +285,6 @@ namespace UI
             lblCurrentShared.Text = string.Format("{0:#,###}", _currentShared > shared ? _currentShared - shared : 0);
         }
 
+        #endregion
     }
 }

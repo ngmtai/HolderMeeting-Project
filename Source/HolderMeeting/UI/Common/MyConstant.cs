@@ -11,7 +11,8 @@ namespace UI.Common
         public class Config
         {
             public static string IpAddress = string.Empty;
-            public static string KeyWord = "Send";
+            public static string KeyWordCondition = "Condition";
+            public static string KeyWordVote = "Vote";
         }
 
         public enum AnswerType

@@ -142,6 +142,7 @@ namespace UI
                 companyId = companyModel.Id;
 
             var lstHolder = new List<Holder>();
+            var hb = new HolderBusiness();
             decimal totalShare = 0;
             for (var i = 0; i < dt.Rows.Count; i++)
             {
@@ -156,8 +157,7 @@ namespace UI
                 if (dt.Rows[i]["TotalShare"] != null &&
                         !string.IsNullOrEmpty(dt.Rows[i]["TotalShare"].ToString()))
                     totalShare = decimal.Parse(dt.Rows[i]["TotalShare"].ToString());
-
-                var hb = new HolderBusiness();
+               
                 if (!hb.CheckExist(code, name, authorizerName, totalShare, cmnd))
                     lstHolder.Add(new Holder
                     {
@@ -176,7 +176,6 @@ namespace UI
 
             if (lstHolder.Any())
             {
-                var hb = new HolderBusiness();
                 var result = hb.Saves(lstHolder);
                 if (result)
                 {

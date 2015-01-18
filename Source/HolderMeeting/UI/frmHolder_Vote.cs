@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
 using System.Windows.Forms;
 using BLL;
 using BLL.Common;
 using BLL.Model;
+using UI.Common;
 
 namespace UI
 {
@@ -15,6 +19,10 @@ namespace UI
         {
             InitializeComponent();
         }
+
+        private Socket _socket;
+        private IPEndPoint _iep;
+        private byte[] _data;
 
         #region function
 
@@ -129,6 +137,12 @@ namespace UI
             #endregion
 
             LoadStatusStrip();
+
+            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            _iep = new IPEndPoint(IPAddress.Broadcast, 9050);
+            _socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, 1);
+            _data = Encoding.ASCII.GetBytes(MyConstant.Config.KeyWordVote);
+
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -159,10 +173,22 @@ namespace UI
                     if (id > 0)
                         if (hvb.CountVoteByHolder(id) < vb.CountVoteIsActive())
                         {
-                            var frmDialog = new HolderVoteDialog { _holderId = id };
+                            var frmDialog = new HolderVoteDialog { HolderId = id };
                             var result = frmDialog.ShowDialog();
                             if (result == DialogResult.OK)
+                            {
                                 ReloadForm();
+
+                                #region send message
+
+                                try
+                                {
+                                    _socket.SendTo(_data, _iep);
+                                }
+                                catch { }
+
+                                #endregion
+                            }
                         }
                         else
                             MessageBox.Show("Cổ đông \"" + name + "\" đã biểu quyết hoàn tất.", "Thông báo",

@@ -24,15 +24,10 @@ namespace UI
         public ReportCondition()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false;
         }
 
         #region function
-
-        public void RefreshForm(string shared, string percent)
-        {
-            lblShared.Text = shared;
-            lblPercent.Text = percent;
-        }
 
         void ReceiveMsg()
         {
@@ -47,7 +42,7 @@ namespace UI
                     var data = new byte[1024];
                     var recv = _socket.ReceiveFrom(data, ref ep);
                     var strData = Encoding.ASCII.GetString(data, 0, recv);
-                    if (strData.Trim().Equals(MyConstant.Config.KeyWord))
+                    if (strData.Trim().Equals(MyConstant.Config.KeyWordCondition))
                         LoadForm();
                 }
             }
@@ -86,6 +81,17 @@ namespace UI
 
             _thread = new Thread(new ThreadStart(ReceiveMsg));
             _thread.Start();
+        }
+
+        private void ReportCondition_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                _socket.Dispose();
+                if (_thread.ThreadState == ThreadState.Running)
+                    _thread.Abort();
+            }
+            catch { }
         }
     }
 }

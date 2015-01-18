@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHolder));
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnChange = new DevExpress.XtraEditors.SimpleButton();
@@ -52,8 +54,7 @@
             this.txtSCode = new DevExpress.XtraEditors.TextEdit();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.stTotal = new System.Windows.Forms.StatusStrip();
-            this.tstt = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
             this.gridHolder = new DevExpress.XtraGrid.GridControl();
             this.gvHolder = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -65,6 +66,12 @@
             this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn7 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridColumn8 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
+            this.btnNew = new DevExpress.XtraEditors.SimpleButton();
+            this.stTotal = new System.Windows.Forms.StatusStrip();
+            this.tstt = new System.Windows.Forms.ToolStripStatusLabel();
+            this.gridColumn10 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btnEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -77,9 +84,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtSCode.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            this.stTotal.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).BeginInit();
+            this.panelControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridHolder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvHolder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).BeginInit();
+            this.panelControl3.SuspendLayout();
+            this.stTotal.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnEdit)).BeginInit();
             this.SuspendLayout();
             // 
             // panelControl2
@@ -297,13 +309,153 @@
             // 
             // panelControl1
             // 
+            this.panelControl1.Controls.Add(this.panelControl4);
+            this.panelControl1.Controls.Add(this.panelControl3);
             this.panelControl1.Controls.Add(this.stTotal);
-            this.panelControl1.Controls.Add(this.gridHolder);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl1.Location = new System.Drawing.Point(263, 0);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(529, 492);
             this.panelControl1.TabIndex = 5;
+            // 
+            // panelControl4
+            // 
+            this.panelControl4.Controls.Add(this.gridHolder);
+            this.panelControl4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl4.Location = new System.Drawing.Point(2, 51);
+            this.panelControl4.Name = "panelControl4";
+            this.panelControl4.Size = new System.Drawing.Size(525, 417);
+            this.panelControl4.TabIndex = 7;
+            // 
+            // gridHolder
+            // 
+            this.gridHolder.Cursor = System.Windows.Forms.Cursors.Default;
+            this.gridHolder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridHolder.Location = new System.Drawing.Point(2, 2);
+            this.gridHolder.MainView = this.gvHolder;
+            this.gridHolder.Name = "gridHolder";
+            this.gridHolder.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.btnEdit});
+            this.gridHolder.Size = new System.Drawing.Size(521, 413);
+            this.gridHolder.TabIndex = 5;
+            this.gridHolder.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvHolder});
+            // 
+            // gvHolder
+            // 
+            this.gvHolder.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn1,
+            this.gridColumn2,
+            this.gridColumn9,
+            this.gridColumn3,
+            this.gridColumn4,
+            this.gridColumn5,
+            this.gridColumn6,
+            this.gridColumn10,
+            this.gridColumn7,
+            this.gridColumn8});
+            this.gvHolder.GridControl = this.gridHolder;
+            this.gvHolder.Name = "gvHolder";
+            this.gvHolder.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
+            this.gvHolder.OptionsCustomization.AllowGroup = false;
+            this.gvHolder.OptionsView.ShowGroupPanel = false;
+            this.gvHolder.RowClick += new DevExpress.XtraGrid.Views.Grid.RowClickEventHandler(this.gvHolder_RowClick);
+            // 
+            // gridColumn1
+            // 
+            this.gridColumn1.Caption = "Mã cổ đông";
+            this.gridColumn1.FieldName = "Code";
+            this.gridColumn1.Name = "gridColumn1";
+            this.gridColumn1.OptionsColumn.AllowEdit = false;
+            this.gridColumn1.Visible = true;
+            this.gridColumn1.VisibleIndex = 0;
+            // 
+            // gridColumn2
+            // 
+            this.gridColumn2.Caption = "Tên";
+            this.gridColumn2.FieldName = "Name";
+            this.gridColumn2.Name = "gridColumn2";
+            this.gridColumn2.OptionsColumn.AllowEdit = false;
+            this.gridColumn2.Visible = true;
+            this.gridColumn2.VisibleIndex = 1;
+            // 
+            // gridColumn9
+            // 
+            this.gridColumn9.Caption = "CMND";
+            this.gridColumn9.FieldName = "CMND";
+            this.gridColumn9.Name = "gridColumn9";
+            this.gridColumn9.OptionsColumn.AllowEdit = false;
+            this.gridColumn9.Visible = true;
+            this.gridColumn9.VisibleIndex = 2;
+            // 
+            // gridColumn3
+            // 
+            this.gridColumn3.Caption = "Số lượng cổ phiếu";
+            this.gridColumn3.FieldName = "TotalShare";
+            this.gridColumn3.Name = "gridColumn3";
+            this.gridColumn3.OptionsColumn.AllowEdit = false;
+            this.gridColumn3.Visible = true;
+            this.gridColumn3.VisibleIndex = 3;
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.Caption = "Người ủy quyền";
+            this.gridColumn4.FieldName = "AuthorizerName";
+            this.gridColumn4.Name = "gridColumn4";
+            this.gridColumn4.OptionsColumn.AllowEdit = false;
+            this.gridColumn4.Visible = true;
+            this.gridColumn4.VisibleIndex = 4;
+            // 
+            // gridColumn5
+            // 
+            this.gridColumn5.Caption = "Tham dự?";
+            this.gridColumn5.FieldName = "IsConfirm";
+            this.gridColumn5.Name = "gridColumn5";
+            this.gridColumn5.OptionsColumn.AllowEdit = false;
+            this.gridColumn5.Visible = true;
+            this.gridColumn5.VisibleIndex = 5;
+            // 
+            // gridColumn6
+            // 
+            this.gridColumn6.Caption = "Ngày cập nhật";
+            this.gridColumn6.FieldName = "UpdateDate";
+            this.gridColumn6.Name = "gridColumn6";
+            this.gridColumn6.OptionsColumn.AllowEdit = false;
+            this.gridColumn6.Visible = true;
+            this.gridColumn6.VisibleIndex = 6;
+            // 
+            // gridColumn7
+            // 
+            this.gridColumn7.Caption = "Id";
+            this.gridColumn7.FieldName = "Id";
+            this.gridColumn7.Name = "gridColumn7";
+            // 
+            // gridColumn8
+            // 
+            this.gridColumn8.Caption = "CreateDate";
+            this.gridColumn8.FieldName = "CreateDate";
+            this.gridColumn8.Name = "gridColumn8";
+            // 
+            // panelControl3
+            // 
+            this.panelControl3.Controls.Add(this.btnNew);
+            this.panelControl3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelControl3.Location = new System.Drawing.Point(2, 2);
+            this.panelControl3.Name = "panelControl3";
+            this.panelControl3.Size = new System.Drawing.Size(525, 49);
+            this.panelControl3.TabIndex = 6;
+            // 
+            // btnNew
+            // 
+            this.btnNew.Image = ((System.Drawing.Image)(resources.GetObject("btnNew.Image")));
+            this.btnNew.ImageLocation = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnNew.Location = new System.Drawing.Point(15, 5);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(49, 38);
+            this.btnNew.TabIndex = 7;
+            this.btnNew.Text = "Thêm mới";
+            this.btnNew.ToolTip = "Thêm mới";
+            this.btnNew.Click += new System.EventHandler(this.btnNew_Click);
             // 
             // stTotal
             // 
@@ -321,105 +473,22 @@
             this.tstt.Size = new System.Drawing.Size(26, 17);
             this.tstt.Text = "aBc";
             // 
-            // gridHolder
+            // gridColumn10
             // 
-            this.gridHolder.Cursor = System.Windows.Forms.Cursors.Default;
-            this.gridHolder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridHolder.Location = new System.Drawing.Point(2, 2);
-            this.gridHolder.MainView = this.gvHolder;
-            this.gridHolder.Name = "gridHolder";
-            this.gridHolder.Size = new System.Drawing.Size(525, 488);
-            this.gridHolder.TabIndex = 4;
-            this.gridHolder.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gvHolder});
+            this.gridColumn10.Caption = "Edit";
+            this.gridColumn10.ColumnEdit = this.btnEdit;
+            this.gridColumn10.Name = "gridColumn10";
+            this.gridColumn10.Visible = true;
+            this.gridColumn10.VisibleIndex = 7;
             // 
-            // gvHolder
+            // btnEdit
             // 
-            this.gvHolder.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-            this.gridColumn1,
-            this.gridColumn2,
-            this.gridColumn9,
-            this.gridColumn3,
-            this.gridColumn4,
-            this.gridColumn5,
-            this.gridColumn6,
-            this.gridColumn7,
-            this.gridColumn8});
-            this.gvHolder.GridControl = this.gridHolder;
-            this.gvHolder.Name = "gvHolder";
-            this.gvHolder.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
-            this.gvHolder.OptionsBehavior.Editable = false;
-            this.gvHolder.OptionsCustomization.AllowGroup = false;
-            this.gvHolder.OptionsView.ShowGroupPanel = false;
-            this.gvHolder.RowClick += new DevExpress.XtraGrid.Views.Grid.RowClickEventHandler(this.gvHolder_RowClick);
-            // 
-            // gridColumn1
-            // 
-            this.gridColumn1.Caption = "Mã cổ đông";
-            this.gridColumn1.FieldName = "Code";
-            this.gridColumn1.Name = "gridColumn1";
-            this.gridColumn1.Visible = true;
-            this.gridColumn1.VisibleIndex = 0;
-            // 
-            // gridColumn2
-            // 
-            this.gridColumn2.Caption = "Tên";
-            this.gridColumn2.FieldName = "Name";
-            this.gridColumn2.Name = "gridColumn2";
-            this.gridColumn2.Visible = true;
-            this.gridColumn2.VisibleIndex = 1;
-            // 
-            // gridColumn9
-            // 
-            this.gridColumn9.Caption = "CMND";
-            this.gridColumn9.FieldName = "CMND";
-            this.gridColumn9.Name = "gridColumn9";
-            this.gridColumn9.Visible = true;
-            this.gridColumn9.VisibleIndex = 2;
-            // 
-            // gridColumn3
-            // 
-            this.gridColumn3.Caption = "Số lượng cổ phiếu";
-            this.gridColumn3.FieldName = "TotalShare";
-            this.gridColumn3.Name = "gridColumn3";
-            this.gridColumn3.Visible = true;
-            this.gridColumn3.VisibleIndex = 3;
-            // 
-            // gridColumn4
-            // 
-            this.gridColumn4.Caption = "Người ủy quyền";
-            this.gridColumn4.FieldName = "AuthorizerName";
-            this.gridColumn4.Name = "gridColumn4";
-            this.gridColumn4.Visible = true;
-            this.gridColumn4.VisibleIndex = 4;
-            // 
-            // gridColumn5
-            // 
-            this.gridColumn5.Caption = "Tham dự?";
-            this.gridColumn5.FieldName = "IsConfirm";
-            this.gridColumn5.Name = "gridColumn5";
-            this.gridColumn5.Visible = true;
-            this.gridColumn5.VisibleIndex = 5;
-            // 
-            // gridColumn6
-            // 
-            this.gridColumn6.Caption = "Ngày cập nhật";
-            this.gridColumn6.FieldName = "UpdateDate";
-            this.gridColumn6.Name = "gridColumn6";
-            this.gridColumn6.Visible = true;
-            this.gridColumn6.VisibleIndex = 6;
-            // 
-            // gridColumn7
-            // 
-            this.gridColumn7.Caption = "Id";
-            this.gridColumn7.FieldName = "Id";
-            this.gridColumn7.Name = "gridColumn7";
-            // 
-            // gridColumn8
-            // 
-            this.gridColumn8.Caption = "CreateDate";
-            this.gridColumn8.FieldName = "CreateDate";
-            this.gridColumn8.Name = "gridColumn8";
+            this.btnEdit.AutoHeight = false;
+            this.btnEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, DevExpress.XtraEditors.ImageLocation.MiddleCenter, ((System.Drawing.Image)(resources.GetObject("btnEdit.Buttons"))), new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject4, "", null, null, true)});
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
+            this.btnEdit.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.btnEdit_ButtonClick);
             // 
             // frmHolder
             // 
@@ -446,10 +515,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
-            this.stTotal.ResumeLayout(false);
-            this.stTotal.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl4)).EndInit();
+            this.panelControl4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridHolder)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvHolder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl3)).EndInit();
+            this.panelControl3.ResumeLayout(false);
+            this.stTotal.ResumeLayout(false);
+            this.stTotal.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnEdit)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -480,19 +554,24 @@
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private System.Windows.Forms.StatusStrip stTotal;
         private System.Windows.Forms.ToolStripStatusLabel tstt;
+        private DevExpress.XtraEditors.TextEdit txtCMND;
+        private DevExpress.XtraEditors.LabelControl labelControl9;
+        private DevExpress.XtraEditors.PanelControl panelControl4;
         private DevExpress.XtraGrid.GridControl gridHolder;
         private DevExpress.XtraGrid.Views.Grid.GridView gvHolder;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn3;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn4;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn5;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn6;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn7;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn8;
-        private DevExpress.XtraEditors.TextEdit txtCMND;
-        private DevExpress.XtraEditors.LabelControl labelControl9;
-        private DevExpress.XtraGrid.Columns.GridColumn gridColumn9;
+        private DevExpress.XtraEditors.PanelControl panelControl3;
+        private DevExpress.XtraEditors.SimpleButton btnNew;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn10;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit btnEdit;
 
     }
 }

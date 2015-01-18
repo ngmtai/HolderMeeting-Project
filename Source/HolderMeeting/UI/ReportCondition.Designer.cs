@@ -89,6 +89,7 @@
             this.Name = "ReportCondition";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Điều kiện mở đại hội";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReportCondition_FormClosing);
             this.Load += new System.EventHandler(this.ReportCondition_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

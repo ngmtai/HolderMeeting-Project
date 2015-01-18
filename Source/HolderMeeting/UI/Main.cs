@@ -119,13 +119,26 @@ namespace UI
 
         private void mniPercentHolder_Click(object sender, EventArgs e)
         {
-            var frm = new ReportCondition();
-            frm.Show();
+            var frm = (ReportCondition)Application.OpenForms["ReportCondition"];
+            if (frm != null)
+                frm.Activate();
+            else
+            {
+                frm = new ReportCondition();
+                frm.Show();
+            }
         }
 
         private void mniPercentVote_Click(object sender, EventArgs e)
         {
-
+            var frm = (ReportVote)Application.OpenForms["ReportVote"];
+            if (frm != null)
+                frm.Activate();
+            else
+            {
+                frm = new ReportVote();
+                frm.Show();
+            }
         }
 
         #endregion

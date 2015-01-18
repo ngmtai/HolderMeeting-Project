@@ -20,9 +20,9 @@ namespace UI
     public partial class frmHolder : Form
     {
         private int _id;
-        private string _aBc;
-        private string _dEf;
         private Socket _socket;
+        private IPEndPoint _iep;
+        private byte[] _data;
 
         public frmHolder()
         {
@@ -45,8 +45,8 @@ namespace UI
             var totalIsConfirm = hb.TotalConfirm(true);
             var totalConfirm = hb.TotalConfirm(null);
             var totalShareIsConfirm = hb.TotalShareIsConfirm(true);
-            //var totalShare = hb.TotalShareIsConfirm(null);
             var share = cb.Detail().TotalShare;
+
             if (share != null)
             {
                 var totalShare = share.Value;
@@ -57,9 +57,6 @@ namespace UI
                 var str = "Số cổ đông tham gia: " + string.Format("{0:#,###}", totalIsConfirm) + "/" + string.Format("{0:#,###}", totalConfirm) + " =  " + Math.Round((decimal)totalIsConfirm * 100 / totalConfirm, 2) + "% | Tổng số cổ phiếu tham gia: " +
                           countConfirm + "/" + string.Format("{0:#,###}", totalShare) + " =  " + percentTotalShared;
                 tstt.Text = str;
-
-                _aBc = "Tổng số cổ phiếu tham gia đại hội: " + countConfirm;
-                _dEf = "Đạt tỉ lệ: " + percentTotalShared;
             }
         }
 
@@ -86,6 +83,15 @@ namespace UI
             gridHolder.DataSource = lstHolder;
 
             ClearForm();
+        }
+
+        void SendMessage()
+        {
+            try
+            {
+                _socket.SendTo(_data, _iep);
+            }
+            catch { }
         }
 
         #endregion
@@ -137,6 +143,11 @@ namespace UI
             #endregion
 
             LoadStatusStrip();
+
+            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            _iep = new IPEndPoint(IPAddress.Broadcast, 9050);
+            _socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, 1);
+            _data = Encoding.ASCII.GetBytes(MyConstant.Config.KeyWordCondition);
         }
 
         private void gvHolder_RowClick(object sender, DevExpress.XtraGrid.Views.Grid.RowClickEventArgs e)
@@ -185,30 +196,10 @@ namespace UI
                         if (hb.UpdateHolder(model))
                         {
                             MessageBox.Show("Cập nhật thành công", "Thông báo", MessageBoxButtons.OK);
+
                             LoadData(txtSName.Text.Trim(), txtSCode.Text.Trim(), txtCMND.Text.Trim());
-
                             LoadStatusStrip();
-
-                            //var form = (ReportCondition)Application.OpenForms["ReportCondition"];
-                            //if (form != null)
-                            //    form.RefreshForm(_aBc, _dEf);
-
-                            #region send message
-
-                            try
-                            {
-                                _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                                var iep = new IPEndPoint(IPAddress.Broadcast, 9050);
-
-                                var str = MyConstant.Config.KeyWord;
-                                var data = Encoding.ASCII.GetBytes(str);
-                                _socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, 1);
-
-                                _socket.SendTo(data, iep);
-                            }
-                            catch { }
-
-                            #endregion
+                            SendMessage();
                         }
                         else
                             MessageBox.Show("Lỗi. Thử lại sau", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -232,6 +223,32 @@ namespace UI
         {
             if (e.KeyCode == Keys.Enter)
                 btnChange.PerformClick();
+        }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+            var frm = new EditHolderDialog();
+            var aBc = frm.ShowDialog();
+            if (aBc == DialogResult.OK)
+            {
+                LoadData(txtSName.Text.Trim(), txtSCode.Text.Trim(), txtCMND.Text.Trim());
+                LoadStatusStrip();
+                SendMessage();
+            }
+        }
+
+        private void btnEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            var holder = (HolderDto)gvHolder.GetRow(gvHolder.FocusedRowHandle);
+
+            var frm = new EditHolderDialog { _holderId = holder.Id };
+            var aBc = frm.ShowDialog();
+            if (aBc == DialogResult.OK)
+            {
+                LoadData(txtSName.Text.Trim(), txtSCode.Text.Trim(), txtCMND.Text.Trim());
+                LoadStatusStrip();
+                SendMessage();
+            }
         }
 
         #endregion
