@@ -106,8 +106,53 @@ namespace BLL
         {
             try
             {
-                _holderMeetingEntities.Holder_Vote.AddRange(lst);
-                _holderMeetingEntities.SaveChanges();
+                var holderId = lst[0].HolderId;
+                var lstOld = _holderMeetingEntities.Holder_Vote.Where(t => t.HolderId == holderId).ToList();
+                if (lstOld.Any())
+                {
+                    //Get new
+                    var lstNew = lst.Where(t => lstOld.All(x => x.VoteId != t.VoteId)).ToList();
+                    //Get update
+                    var lstUpdate = lst.Where(t => lstOld.Any(x => x.VoteId == t.VoteId)).ToList();
+                    //Get remove
+                    var lstRemove = lstOld.Where(t => lst.All(x => x.VoteId != t.VoteId)).ToList();
+
+                    if (lstRemove.Any())
+                    {
+                        _holderMeetingEntities.Holder_Vote.RemoveRange(lstRemove.ToList());
+                        _holderMeetingEntities.SaveChanges();
+                    }
+
+                    if (lstUpdate.Any())
+                    {
+                        foreach (var holderVote in lstUpdate)
+                        {
+                            var tmp =
+                                _holderMeetingEntities.Holder_Vote.SingleOrDefault(
+                                    t => t.HolderId == holderVote.HolderId && t.VoteId == holderVote.VoteId);
+                            if (tmp != null)
+                            {
+                                tmp.AnswerType = holderVote.AnswerType;
+                                tmp.AnswerName = holderVote.AnswerName;
+                                tmp.TotalShare = holderVote.TotalShare;
+                                tmp.UpdateDate = DateTime.Now;
+
+                                _holderMeetingEntities.SaveChanges();
+                            }
+                        }
+                    }
+
+                    if (lstNew.Any())
+                    {
+                        _holderMeetingEntities.Holder_Vote.AddRange(lstNew);
+                        _holderMeetingEntities.SaveChanges();
+                    }
+                }
+                else
+                {
+                    _holderMeetingEntities.Holder_Vote.AddRange(lst);
+                    _holderMeetingEntities.SaveChanges();
+                }
 
                 return true;
             }
@@ -141,6 +186,29 @@ namespace BLL
         }
 
         /// <summary>
+        /// Get total share by voteId
+        /// </summary>
+        /// <param name="voteId"></param>
+        /// <returns></returns>
+        /// <history>
+        /// 1/19/2015 aBc: create new
+        /// </history>
+        public decimal TotalShareByVote(int voteId)
+        {
+            try
+            {
+                var aBc = _holderMeetingEntities.Holder_Vote.Where(t => t.VoteId == voteId && t.IsActive == true).Select(t => t.TotalShare).ToList();
+                decimal total = 0;
+                foreach (var item in aBc)
+                    total += item.Value;
+                return total;
+            }
+            catch { }
+
+            return 0;
+        }
+
+        /// <summary>
         /// Get top answerName by other
         /// </summary>
         /// <param name="top"></param>
@@ -150,21 +218,43 @@ namespace BLL
         /// <history>
         /// 1/17/2015 aBc: create new
         /// </history>
-        public List<string> GetTopAnswerName(int top, int answerTypeId, int voteId)
+        public List<Tuple<string, decimal>> GetTopAnswerName(int top, int answerTypeId, int voteId)
         {
+            var lst = new List<Tuple<string, decimal>>();
             try
             {
-                return
-                    _holderMeetingEntities.Holder_Vote.OrderByDescending(t => t.TotalShare)
+                var aBc = _holderMeetingEntities.Holder_Vote.OrderByDescending(t => t.TotalShare)
                         .Where(t => t.AnswerType == answerTypeId && t.VoteId == voteId && t.IsActive == true)
-                        .Select(t => t.AnswerName)
                         .Skip(0)
-                        .Take(top)
-                        .ToList();
+                        .Take(top);
+
+                foreach (var item in aBc)
+                    if (item.TotalShare != null)
+                        lst.Add(new Tuple<string, decimal>(item.AnswerName, item.TotalShare.Value));
             }
             catch { }
 
-            return new List<string>();
+            return lst;
+        }
+
+        /// <summary>
+        /// Get HolderVote by HolderId and VoteId
+        /// </summary>
+        /// <param name="holderId"></param>
+        /// <param name="voteId"></param>
+        /// <returns></returns>
+        /// <history>
+        /// 1/21/2015 aBc: create new
+        /// </history>
+        public Holder_Vote GetByVoteId(int holderId, int voteId)
+        {
+            try
+            {
+                return _holderMeetingEntities.Holder_Vote.FirstOrDefault(t => t.IsActive == true && t.HolderId == holderId && t.VoteId == voteId);
+            }
+            catch { }
+
+            return new Holder_Vote();
         }
     }
 }
