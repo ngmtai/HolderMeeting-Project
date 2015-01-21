@@ -13,6 +13,7 @@ namespace UI.Common
             public static string IpAddress = string.Empty;
             public static string KeyWordCondition = "Condition";
             public static string KeyWordVote = "Vote";
+            public static string KeyWordConnect = "Connect";
         }
 
         public enum AnswerType

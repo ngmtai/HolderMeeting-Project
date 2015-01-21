@@ -387,6 +387,8 @@ namespace UI {
             
             private global::System.Data.DataColumn columnUpdateUser;
             
+            private global::System.Data.DataColumn columnCMND;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public HolderDataTable() {
@@ -518,6 +520,14 @@ namespace UI {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn CMNDColumn {
+                get {
+                    return this.columnCMND;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -553,7 +563,7 @@ namespace UI {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public HolderRow AddHolderRow(string Code, string Name, decimal TotalShare, string AuthorizerName, bool IsActive, bool IsConfirm, int CompanyId, System.DateTime CreateDate, string CreateUser, System.DateTime UpdateDate, string UpdateUser) {
+            public HolderRow AddHolderRow(string Code, string Name, decimal TotalShare, string AuthorizerName, bool IsActive, bool IsConfirm, int CompanyId, System.DateTime CreateDate, string CreateUser, System.DateTime UpdateDate, string UpdateUser, string CMND) {
                 HolderRow rowHolderRow = ((HolderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -567,7 +577,8 @@ namespace UI {
                         CreateDate,
                         CreateUser,
                         UpdateDate,
-                        UpdateUser};
+                        UpdateUser,
+                        CMND};
                 rowHolderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowHolderRow);
                 return rowHolderRow;
@@ -609,6 +620,7 @@ namespace UI {
                 this.columnCreateUser = base.Columns["CreateUser"];
                 this.columnUpdateDate = base.Columns["UpdateDate"];
                 this.columnUpdateUser = base.Columns["UpdateUser"];
+                this.columnCMND = base.Columns["CMND"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -638,6 +650,8 @@ namespace UI {
                 base.Columns.Add(this.columnUpdateDate);
                 this.columnUpdateUser = new global::System.Data.DataColumn("UpdateUser", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUpdateUser);
+                this.columnCMND = new global::System.Data.DataColumn("CMND", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCMND);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -651,6 +665,7 @@ namespace UI {
                 this.columnAuthorizerName.MaxLength = 200;
                 this.columnCreateUser.MaxLength = 100;
                 this.columnUpdateUser.MaxLength = 100;
+                this.columnCMND.MaxLength = 20;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1681,6 +1696,22 @@ namespace UI {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string CMND {
+                get {
+                    try {
+                        return ((string)(this[this.tableHolder.CMNDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CMND\' in table \'Holder\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableHolder.CMNDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsCodeNull() {
                 return this.IsNull(this.tableHolder.CodeColumn);
             }
@@ -1809,6 +1840,18 @@ namespace UI {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetUpdateUserNull() {
                 this[this.tableHolder.UpdateUserColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsCMNDNull() {
+                return this.IsNull(this.tableHolder.CMNDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetCMNDNull() {
+                this[this.tableHolder.CMNDColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2466,10 +2509,11 @@ namespace UI.HolderMeetingDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("CreateUser", "CreateUser");
             tableMapping.ColumnMappings.Add("UpdateDate", "UpdateDate");
             tableMapping.ColumnMappings.Add("UpdateUser", "UpdateUser");
+            tableMapping.ColumnMappings.Add("CMND", "CMND");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Holder] WHERE (([Id] = @Original_Id) AND ((@IsNull_Code = 1 AND [Code] IS NULL) OR ([Code] = @Original_Code)) AND ((@IsNull_Name = 1 AND [Name] IS NULL) OR ([Name] = @Original_Name)) AND ((@IsNull_TotalShare = 1 AND [TotalShare] IS NULL) OR ([TotalShare] = @Original_TotalShare)) AND ((@IsNull_AuthorizerName = 1 AND [AuthorizerName] IS NULL) OR ([AuthorizerName] = @Original_AuthorizerName)) AND ((@IsNull_IsActive = 1 AND [IsActive] IS NULL) OR ([IsActive] = @Original_IsActive)) AND ((@IsNull_IsConfirm = 1 AND [IsConfirm] IS NULL) OR ([IsConfirm] = @Original_IsConfirm)) AND ((@IsNull_CompanyId = 1 AND [CompanyId] IS NULL) OR ([CompanyId] = @Original_CompanyId)) AND ((@IsNull_CreateDate = 1 AND [CreateDate] IS NULL) OR ([CreateDate] = @Original_CreateDate)) AND ((@IsNull_CreateUser = 1 AND [CreateUser] IS NULL) OR ([CreateUser] = @Original_CreateUser)) AND ((@IsNull_UpdateDate = 1 AND [UpdateDate] IS NULL) OR ([UpdateDate] = @Original_UpdateDate)) AND ((@IsNull_UpdateUser = 1 AND [UpdateUser] IS NULL) OR ([UpdateUser] = @Original_UpdateUser)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Holder] WHERE (([Id] = @Original_Id) AND ((@IsNull_Code = 1 AND [Code] IS NULL) OR ([Code] = @Original_Code)) AND ((@IsNull_Name = 1 AND [Name] IS NULL) OR ([Name] = @Original_Name)) AND ((@IsNull_TotalShare = 1 AND [TotalShare] IS NULL) OR ([TotalShare] = @Original_TotalShare)) AND ((@IsNull_AuthorizerName = 1 AND [AuthorizerName] IS NULL) OR ([AuthorizerName] = @Original_AuthorizerName)) AND ((@IsNull_IsActive = 1 AND [IsActive] IS NULL) OR ([IsActive] = @Original_IsActive)) AND ((@IsNull_IsConfirm = 1 AND [IsConfirm] IS NULL) OR ([IsConfirm] = @Original_IsConfirm)) AND ((@IsNull_CompanyId = 1 AND [CompanyId] IS NULL) OR ([CompanyId] = @Original_CompanyId)) AND ((@IsNull_CreateDate = 1 AND [CreateDate] IS NULL) OR ([CreateDate] = @Original_CreateDate)) AND ((@IsNull_CreateUser = 1 AND [CreateUser] IS NULL) OR ([CreateUser] = @Original_CreateUser)) AND ((@IsNull_UpdateDate = 1 AND [UpdateDate] IS NULL) OR ([UpdateDate] = @Original_UpdateDate)) AND ((@IsNull_UpdateUser = 1 AND [UpdateUser] IS NULL) OR ([UpdateUser] = @Original_UpdateUser)) AND ((@IsNull_CMND = 1 AND [CMND] IS NULL) OR ([CMND] = @Original_CMND)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Code", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Code", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -2494,10 +2538,12 @@ namespace UI.HolderMeetingDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_UpdateDate", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UpdateDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_UpdateUser", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UpdateUser", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_UpdateUser", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UpdateUser", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CMND", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CMND", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CMND", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CMND", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Holder] ([Code], [Name], [TotalShare], [AuthorizerName], [IsActive], [IsConfirm], [CompanyId], [CreateDate], [CreateUser], [UpdateDate], [UpdateUser]) VALUES (@Code, @Name, @TotalShare, @AuthorizerName, @IsActive, @IsConfirm, @CompanyId, @CreateDate, @CreateUser, @UpdateDate, @UpdateUser);
-SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyId, CreateDate, CreateUser, UpdateDate, UpdateUser FROM Holder WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Holder] ([Code], [Name], [TotalShare], [AuthorizerName], [IsActive], [IsConfirm], [CompanyId], [CreateDate], [CreateUser], [UpdateDate], [UpdateUser], [CMND]) VALUES (@Code, @Name, @TotalShare, @AuthorizerName, @IsActive, @IsConfirm, @CompanyId, @CreateDate, @CreateUser, @UpdateDate, @UpdateUser, @CMND);
+SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyId, CreateDate, CreateUser, UpdateDate, UpdateUser, CMND FROM Holder WHERE (Id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Code", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Code", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -2510,27 +2556,30 @@ SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyI
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreateUser", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreateUser", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UpdateDate", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UpdateDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UpdateUser", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UpdateUser", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CMND", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CMND", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
             this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Holder] SET [Code] = @Code, [Name] = @Name, [TotalShare] = @TotalSh" +
                 "are, [AuthorizerName] = @AuthorizerName, [IsActive] = @IsActive, [IsConfirm] = @" +
                 "IsConfirm, [CompanyId] = @CompanyId, [CreateDate] = @CreateDate, [CreateUser] = " +
-                "@CreateUser, [UpdateDate] = @UpdateDate, [UpdateUser] = @UpdateUser WHERE (([Id]" +
-                " = @Original_Id) AND ((@IsNull_Code = 1 AND [Code] IS NULL) OR ([Code] = @Origin" +
-                "al_Code)) AND ((@IsNull_Name = 1 AND [Name] IS NULL) OR ([Name] = @Original_Name" +
-                ")) AND ((@IsNull_TotalShare = 1 AND [TotalShare] IS NULL) OR ([TotalShare] = @Or" +
-                "iginal_TotalShare)) AND ((@IsNull_AuthorizerName = 1 AND [AuthorizerName] IS NUL" +
-                "L) OR ([AuthorizerName] = @Original_AuthorizerName)) AND ((@IsNull_IsActive = 1 " +
-                "AND [IsActive] IS NULL) OR ([IsActive] = @Original_IsActive)) AND ((@IsNull_IsCo" +
-                "nfirm = 1 AND [IsConfirm] IS NULL) OR ([IsConfirm] = @Original_IsConfirm)) AND (" +
-                "(@IsNull_CompanyId = 1 AND [CompanyId] IS NULL) OR ([CompanyId] = @Original_Comp" +
-                "anyId)) AND ((@IsNull_CreateDate = 1 AND [CreateDate] IS NULL) OR ([CreateDate] " +
-                "= @Original_CreateDate)) AND ((@IsNull_CreateUser = 1 AND [CreateUser] IS NULL) " +
-                "OR ([CreateUser] = @Original_CreateUser)) AND ((@IsNull_UpdateDate = 1 AND [Upda" +
-                "teDate] IS NULL) OR ([UpdateDate] = @Original_UpdateDate)) AND ((@IsNull_UpdateU" +
-                "ser = 1 AND [UpdateUser] IS NULL) OR ([UpdateUser] = @Original_UpdateUser)));\r\nS" +
-                "ELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyId" +
-                ", CreateDate, CreateUser, UpdateDate, UpdateUser FROM Holder WHERE (Id = @Id)";
+                "@CreateUser, [UpdateDate] = @UpdateDate, [UpdateUser] = @UpdateUser, [CMND] = @C" +
+                "MND WHERE (([Id] = @Original_Id) AND ((@IsNull_Code = 1 AND [Code] IS NULL) OR (" +
+                "[Code] = @Original_Code)) AND ((@IsNull_Name = 1 AND [Name] IS NULL) OR ([Name] " +
+                "= @Original_Name)) AND ((@IsNull_TotalShare = 1 AND [TotalShare] IS NULL) OR ([T" +
+                "otalShare] = @Original_TotalShare)) AND ((@IsNull_AuthorizerName = 1 AND [Author" +
+                "izerName] IS NULL) OR ([AuthorizerName] = @Original_AuthorizerName)) AND ((@IsNu" +
+                "ll_IsActive = 1 AND [IsActive] IS NULL) OR ([IsActive] = @Original_IsActive)) AN" +
+                "D ((@IsNull_IsConfirm = 1 AND [IsConfirm] IS NULL) OR ([IsConfirm] = @Original_I" +
+                "sConfirm)) AND ((@IsNull_CompanyId = 1 AND [CompanyId] IS NULL) OR ([CompanyId] " +
+                "= @Original_CompanyId)) AND ((@IsNull_CreateDate = 1 AND [CreateDate] IS NULL) O" +
+                "R ([CreateDate] = @Original_CreateDate)) AND ((@IsNull_CreateUser = 1 AND [Creat" +
+                "eUser] IS NULL) OR ([CreateUser] = @Original_CreateUser)) AND ((@IsNull_UpdateDa" +
+                "te = 1 AND [UpdateDate] IS NULL) OR ([UpdateDate] = @Original_UpdateDate)) AND (" +
+                "(@IsNull_UpdateUser = 1 AND [UpdateUser] IS NULL) OR ([UpdateUser] = @Original_U" +
+                "pdateUser)) AND ((@IsNull_CMND = 1 AND [CMND] IS NULL) OR ([CMND] = @Original_CM" +
+                "ND)));\r\nSELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, " +
+                "CompanyId, CreateDate, CreateUser, UpdateDate, UpdateUser, CMND FROM Holder WHER" +
+                "E (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Code", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Code", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Name", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -2543,6 +2592,7 @@ SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyI
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreateUser", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreateUser", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UpdateDate", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UpdateDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UpdateUser", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UpdateUser", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CMND", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CMND", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_Code", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Code", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Code", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Code", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -2566,6 +2616,8 @@ SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyI
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_UpdateDate", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UpdateDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_UpdateUser", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UpdateUser", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_UpdateUser", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UpdateUser", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CMND", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CMND", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CMND", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CMND", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -2579,13 +2631,25 @@ SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyI
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyId" +
-                ", CreateDate, CreateUser, UpdateDate, UpdateUser FROM dbo.Holder\r\nWHERE IsActive" +
-                " = 1 And IsConfirm = 1";
+                ", CreateDate, CreateUser, UpdateDate, UpdateUser, CMND FROM dbo.Holder\r\nWHERE Is" +
+                "Active = 1 And IsConfirm = 1";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[1].Connection = this.Connection;
+            this._commandCollection[1].CommandText = @"SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyId, CreateDate, CreateUser, UpdateDate, UpdateUser, CMND
+FROM Holder
+WHERE (IsActive = 1) AND (IsConfirm = 1) 
+			AND ('' + @Code + '' = '' OR Code LIKE '%' + @Code + '%') 
+			AND ('' + @Name + '' = '' OR Name LIKE '%' + @Name + '%') 
+			AND ('' + @Cmnd + '' = '' OR CMND LIKE '%' + @Cmnd + '%')";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Code", global::System.Data.SqlDbType.VarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "Code", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Name", global::System.Data.SqlDbType.NVarChar, 200, global::System.Data.ParameterDirection.Input, 0, 0, "Name", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Cmnd", global::System.Data.SqlDbType.NVarChar, 20, global::System.Data.ParameterDirection.Input, 0, 0, "CMND", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2607,6 +2671,66 @@ SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyI
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual HolderMeetingDataSet.HolderDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            HolderMeetingDataSet.HolderDataTable dataTable = new HolderMeetingDataSet.HolderDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy(HolderMeetingDataSet.HolderDataTable dataTable, string Code, string Name, string Cmnd) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((Code == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(Code));
+            }
+            if ((Name == null)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Name));
+            }
+            if ((Cmnd == null)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((string)(Cmnd));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual HolderMeetingDataSet.HolderDataTable GetDataBy(string Code, string Name, string Cmnd) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            if ((Code == null)) {
+                this.Adapter.SelectCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(Code));
+            }
+            if ((Name == null)) {
+                this.Adapter.SelectCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(Name));
+            }
+            if ((Cmnd == null)) {
+                this.Adapter.SelectCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[2].Value = ((string)(Cmnd));
+            }
             HolderMeetingDataSet.HolderDataTable dataTable = new HolderMeetingDataSet.HolderDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -2645,7 +2769,7 @@ SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyI
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id, string Original_Code, string Original_Name, global::System.Nullable<decimal> Original_TotalShare, string Original_AuthorizerName, global::System.Nullable<bool> Original_IsActive, global::System.Nullable<bool> Original_IsConfirm, global::System.Nullable<int> Original_CompanyId, global::System.Nullable<global::System.DateTime> Original_CreateDate, string Original_CreateUser, global::System.Nullable<global::System.DateTime> Original_UpdateDate, string Original_UpdateUser) {
+        public virtual int Delete(int Original_Id, string Original_Code, string Original_Name, global::System.Nullable<decimal> Original_TotalShare, string Original_AuthorizerName, global::System.Nullable<bool> Original_IsActive, global::System.Nullable<bool> Original_IsConfirm, global::System.Nullable<int> Original_CompanyId, global::System.Nullable<global::System.DateTime> Original_CreateDate, string Original_CreateUser, global::System.Nullable<global::System.DateTime> Original_UpdateDate, string Original_UpdateUser, string Original_CMND) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
             if ((Original_Code == null)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
@@ -2735,6 +2859,14 @@ SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyI
                 this.Adapter.DeleteCommand.Parameters[21].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[22].Value = ((string)(Original_UpdateUser));
             }
+            if ((Original_CMND == null)) {
+                this.Adapter.DeleteCommand.Parameters[23].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[24].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[23].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[24].Value = ((string)(Original_CMND));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2755,7 +2887,7 @@ SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyI
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Code, string Name, global::System.Nullable<decimal> TotalShare, string AuthorizerName, global::System.Nullable<bool> IsActive, global::System.Nullable<bool> IsConfirm, global::System.Nullable<int> CompanyId, global::System.Nullable<global::System.DateTime> CreateDate, string CreateUser, global::System.Nullable<global::System.DateTime> UpdateDate, string UpdateUser) {
+        public virtual int Insert(string Code, string Name, global::System.Nullable<decimal> TotalShare, string AuthorizerName, global::System.Nullable<bool> IsActive, global::System.Nullable<bool> IsConfirm, global::System.Nullable<int> CompanyId, global::System.Nullable<global::System.DateTime> CreateDate, string CreateUser, global::System.Nullable<global::System.DateTime> UpdateDate, string UpdateUser, string CMND) {
             if ((Code == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -2822,6 +2954,12 @@ SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyI
             else {
                 this.Adapter.InsertCommand.Parameters[10].Value = ((string)(UpdateUser));
             }
+            if ((CMND == null)) {
+                this.Adapter.InsertCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[11].Value = ((string)(CMND));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2854,6 +2992,7 @@ SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyI
                     string CreateUser, 
                     global::System.Nullable<global::System.DateTime> UpdateDate, 
                     string UpdateUser, 
+                    string CMND, 
                     int Original_Id, 
                     string Original_Code, 
                     string Original_Name, 
@@ -2866,6 +3005,7 @@ SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyI
                     string Original_CreateUser, 
                     global::System.Nullable<global::System.DateTime> Original_UpdateDate, 
                     string Original_UpdateUser, 
+                    string Original_CMND, 
                     int Id) {
             if ((Code == null)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
@@ -2933,96 +3073,110 @@ SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyI
             else {
                 this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(UpdateUser));
             }
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_Id));
-            if ((Original_Code == null)) {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
+            if ((CMND == null)) {
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((string)(Original_Code));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(CMND));
+            }
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_Id));
+            if ((Original_Code == null)) {
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((string)(Original_Code));
             }
             if ((Original_Name == null)) {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((string)(Original_Name));
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(Original_Name));
             }
             if ((Original_TotalShare.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((decimal)(Original_TotalShare.Value));
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((decimal)(Original_TotalShare.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
             }
             if ((Original_AuthorizerName == null)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((string)(Original_AuthorizerName));
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[20].Value = ((string)(Original_AuthorizerName));
             }
             if ((Original_IsActive.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[21].Value = ((bool)(Original_IsActive.Value));
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((bool)(Original_IsActive.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[21].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[22].Value = global::System.DBNull.Value;
             }
             if ((Original_IsConfirm.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[23].Value = ((bool)(Original_IsConfirm.Value));
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[24].Value = ((bool)(Original_IsConfirm.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[22].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[23].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[23].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[24].Value = global::System.DBNull.Value;
             }
             if ((Original_CompanyId.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((int)(Original_CompanyId.Value));
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[26].Value = ((int)(Original_CompanyId.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[25].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[26].Value = global::System.DBNull.Value;
             }
             if ((Original_CreateDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[27].Value = ((System.DateTime)(Original_CreateDate.Value));
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((System.DateTime)(Original_CreateDate.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[26].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[27].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[28].Value = global::System.DBNull.Value;
             }
             if ((Original_CreateUser == null)) {
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[29].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[30].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[28].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[29].Value = ((string)(Original_CreateUser));
+                this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[30].Value = ((string)(Original_CreateUser));
             }
             if ((Original_UpdateDate.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[31].Value = ((System.DateTime)(Original_UpdateDate.Value));
+                this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[32].Value = ((System.DateTime)(Original_UpdateDate.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[30].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[31].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[32].Value = global::System.DBNull.Value;
             }
             if ((Original_UpdateUser == null)) {
-                this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[33].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[33].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[34].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[32].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[33].Value = ((string)(Original_UpdateUser));
+                this.Adapter.UpdateCommand.Parameters[33].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[34].Value = ((string)(Original_UpdateUser));
             }
-            this.Adapter.UpdateCommand.Parameters[34].Value = ((int)(Id));
+            if ((Original_CMND == null)) {
+                this.Adapter.UpdateCommand.Parameters[35].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[36].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[35].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[36].Value = ((string)(Original_CMND));
+            }
+            this.Adapter.UpdateCommand.Parameters[37].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3055,6 +3209,7 @@ SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyI
                     string CreateUser, 
                     global::System.Nullable<global::System.DateTime> UpdateDate, 
                     string UpdateUser, 
+                    string CMND, 
                     int Original_Id, 
                     string Original_Code, 
                     string Original_Name, 
@@ -3066,8 +3221,9 @@ SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyI
                     global::System.Nullable<global::System.DateTime> Original_CreateDate, 
                     string Original_CreateUser, 
                     global::System.Nullable<global::System.DateTime> Original_UpdateDate, 
-                    string Original_UpdateUser) {
-            return this.Update(Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyId, CreateDate, CreateUser, UpdateDate, UpdateUser, Original_Id, Original_Code, Original_Name, Original_TotalShare, Original_AuthorizerName, Original_IsActive, Original_IsConfirm, Original_CompanyId, Original_CreateDate, Original_CreateUser, Original_UpdateDate, Original_UpdateUser, Original_Id);
+                    string Original_UpdateUser, 
+                    string Original_CMND) {
+            return this.Update(Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyId, CreateDate, CreateUser, UpdateDate, UpdateUser, CMND, Original_Id, Original_Code, Original_Name, Original_TotalShare, Original_AuthorizerName, Original_IsActive, Original_IsConfirm, Original_CompanyId, Original_CreateDate, Original_CreateUser, Original_UpdateDate, Original_UpdateUser, Original_CMND, Original_Id);
         }
     }
     

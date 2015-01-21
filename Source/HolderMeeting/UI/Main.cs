@@ -4,14 +4,22 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Windows.Forms;
+using DevExpress.XtraTabbedMdi;
+using UI.Common;
 
 namespace UI
 {
     public partial class Main : Form
     {
         private readonly List<Form> _childForms;
+        private Socket _socket;
+        private IPEndPoint _iep;
+        private byte[] _data;
+        private string _formActive = string.Empty;
 
         public Main()
         {
@@ -42,6 +50,16 @@ namespace UI
             }
         }
 
+        XtraMdiTabPage FindPageByText(string pageText)
+        {
+            foreach (XtraMdiTabPage page in mdiParentManager.Pages)
+            {
+                if (page.Text == pageText)
+                    return page;
+            }
+            return null;
+        }
+
         void LoadHolder()
         {
 
@@ -61,7 +79,7 @@ namespace UI
 
         #region event
 
-        private void mniConnect_Click(object sender, EventArgs e)
+        private void mniConnect_Click_1(object sender, EventArgs e)
         {
             var frm = new frmConnect();
             var result = frm.ShowDialog();
@@ -69,7 +87,7 @@ namespace UI
             {
                 case DialogResult.OK:
                     frm.Dispose();
-                    mniHolder.Visible =
+                    mniSend.Visible = mniHolder.Visible =
                         mniVote.Visible = mniHolderVote.Visible = mniReport.Visible = mniAbout.Visible = true;
                     mnMain.Visible = true;
 
@@ -80,10 +98,24 @@ namespace UI
 
                     break;
             }
+
+        }
+
+        private void mniSend_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _socket.SendTo(_data, _iep);
+            }
+            catch { }
         }
 
         private void Main_Load(object sender, EventArgs e)
         {
+            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            _iep = new IPEndPoint(IPAddress.Broadcast, 9050);
+            _socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, 1);
+            _data = Encoding.ASCII.GetBytes(MyConstant.Config.KeyWordConnect);
         }
 
         private void mniImport_Click(object sender, EventArgs e)
@@ -138,6 +170,19 @@ namespace UI
             {
                 frm = new ReportVote();
                 frm.Show();
+            }
+        }
+
+        private void mdiParentManager_PageRemoved(object sender, MdiTabPageEventArgs e)
+        {
+            foreach (var childForm in _childForms)
+            {
+                var aBc = FindPageByText(childForm.Text);
+                if (aBc == null)
+                {
+                    _childForms.Remove(_childForms.Single(t => t.Name == childForm.Name));
+                    break;
+                }
             }
         }
 

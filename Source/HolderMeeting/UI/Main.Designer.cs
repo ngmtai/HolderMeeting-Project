@@ -30,7 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.mnMain = new System.Windows.Forms.MenuStrip();
+            this.mniConnectMain = new System.Windows.Forms.ToolStripMenuItem();
             this.mniConnect = new System.Windows.Forms.ToolStripMenuItem();
+            this.mniSend = new System.Windows.Forms.ToolStripMenuItem();
             this.mniHolder = new System.Windows.Forms.ToolStripMenuItem();
             this.mniImport = new System.Windows.Forms.ToolStripMenuItem();
             this.mniList = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,7 +50,7 @@
             // mnMain
             // 
             this.mnMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mniConnect,
+            this.mniConnectMain,
             this.mniHolder,
             this.mniVote,
             this.mniHolderVote,
@@ -60,12 +62,29 @@
             this.mnMain.Size = new System.Drawing.Size(798, 24);
             this.mnMain.TabIndex = 1;
             // 
+            // mniConnectMain
+            // 
+            this.mniConnectMain.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mniConnect,
+            this.mniSend});
+            this.mniConnectMain.Name = "mniConnectMain";
+            this.mniConnectMain.Size = new System.Drawing.Size(56, 20);
+            this.mniConnectMain.Text = "Kết nối";
+            // 
             // mniConnect
             // 
             this.mniConnect.Name = "mniConnect";
-            this.mniConnect.Size = new System.Drawing.Size(56, 20);
-            this.mniConnect.Text = "Kết nối";
-            this.mniConnect.Click += new System.EventHandler(this.mniConnect_Click);
+            this.mniConnect.Size = new System.Drawing.Size(179, 22);
+            this.mniConnect.Text = "Kết nối máy chủ";
+            this.mniConnect.Click += new System.EventHandler(this.mniConnect_Click_1);
+            // 
+            // mniSend
+            // 
+            this.mniSend.Name = "mniSend";
+            this.mniSend.Size = new System.Drawing.Size(179, 22);
+            this.mniSend.Text = "Gửi địa chỉ máy chủ";
+            this.mniSend.Visible = false;
+            this.mniSend.Click += new System.EventHandler(this.mniSend_Click);
             // 
             // mniHolder
             // 
@@ -142,6 +161,7 @@
             // mdiParentManager
             // 
             this.mdiParentManager.MdiParent = this;
+            this.mdiParentManager.PageRemoved += new DevExpress.XtraTabbedMdi.MdiTabPageEventHandler(this.mdiParentManager_PageRemoved);
             // 
             // Main
             // 
@@ -167,7 +187,7 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip mnMain;
-        private System.Windows.Forms.ToolStripMenuItem mniConnect;
+        private System.Windows.Forms.ToolStripMenuItem mniConnectMain;
         private System.Windows.Forms.ToolStripMenuItem mniHolder;
         private System.Windows.Forms.ToolStripMenuItem mniReport;
         private System.Windows.Forms.ToolStripMenuItem mniPercentHolder;
@@ -178,6 +198,8 @@
         private System.Windows.Forms.ToolStripMenuItem mniList;
         private System.Windows.Forms.ToolStripMenuItem mniVote;
         private System.Windows.Forms.ToolStripMenuItem mniHolderVote;
+        private System.Windows.Forms.ToolStripMenuItem mniConnect;
+        private System.Windows.Forms.ToolStripMenuItem mniSend;
 
     }
 }

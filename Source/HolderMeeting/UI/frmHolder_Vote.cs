@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -18,6 +19,7 @@ namespace UI
         public frmHolder_Vote()
         {
             InitializeComponent();
+            panelControl1.AutoScroll = true;
         }
 
         private Socket _socket;
@@ -70,20 +72,41 @@ namespace UI
                 });
             }
 
-
             gridHolderVote.DataSource = lstHolder.OrderBy(t => t.IsVote);
-
         }
 
-        void ReloadForm()
+        void ReloadForm(string name, string code, string cmnd)
         {
-            holderTableAdapter.Connection.ConnectionString = BoConstant.Config.ConnectionString;
-            holder_VoteTableAdapter.Connection.ConnectionString = BoConstant.Config.ConnectionString;
+            try
+            {
+                var connection = new SqlConnection(BoConstant.Config.ConnectionString);
+                var cmd = new SqlCommand
+                {
+                    CommandText =
+                        string.Format(@"SELECT Id, Code, Name, TotalShare, AuthorizerName, IsActive, IsConfirm, CompanyId, CreateDate, CreateUser, UpdateDate, UpdateUser, CMND
+                                    FROM Holder
+                                    WHERE (IsActive = 1) AND (IsConfirm = 1) 
+                                            AND ('{0}' = '' OR Code LIKE '%{0}%') 
+                                            AND ('{1}' = '' OR Name LIKE '%{1}%') 
+                                            AND ('{2}' = '' OR CMND LIKE '%{2}%')", code, name, cmnd),
+                    CommandType = CommandType.Text,
+                    Connection = connection
+                };
 
-            holderTableAdapter.Fill(holderMeetingDataSet.Holder);
-            holder_VoteTableAdapter.Fill(holderMeetingDataSet.Holder_Vote);
+                var da = new SqlDataAdapter(cmd);
+                holderMeetingDataSet.Holder.Clear();
+                da.Fill(holderMeetingDataSet.Holder);
 
-            //gridHolderVote.RefreshDataSource();
+                //holderTableAdapter.Connection.ConnectionString = BoConstant.Config.ConnectionString;
+                holder_VoteTableAdapter.Connection.ConnectionString = BoConstant.Config.ConnectionString;
+
+                //holderTableAdapter.FillBy(holderMeetingDataSet.Holder, code, name, cmnd);
+                ////holderTableAdapter.Fill(holderMeetingDataSet.Holder);
+
+                holder_VoteTableAdapter.Fill(holderMeetingDataSet.Holder_Vote);
+                gridHolderVote.RefreshDataSource();
+            }
+            catch { }
         }
 
         #endregion
@@ -98,9 +121,7 @@ namespace UI
                 return;
             }
 
-            ReloadForm();
-
-            //LoadData(string.Empty, string.Empty);
+            ReloadForm(txtSName.Text.Trim(), txtSCode.Text.Trim(), txtCmnd.Text.Trim());
 
             #region autocomplete
 
@@ -153,7 +174,7 @@ namespace UI
                 return;
             }
 
-            LoadData(txtSName.Text.Trim(), txtSCode.Text.Trim(), txtCmnd.Text.Trim());
+            ReloadForm(txtSName.Text.Trim(), txtSCode.Text.Trim(), txtCmnd.Text.Trim());
         }
 
         private void btnRowVote_Click(object sender, EventArgs e)
@@ -165,34 +186,34 @@ namespace UI
                 if (dataRowView.Row.ItemArray.Any())
                 {
                     var id = int.Parse(dataRowView.Row.ItemArray[0].ToString());
-                    var name = dataRowView.Row.ItemArray[2].ToString();
+                    //var name = dataRowView.Row.ItemArray[2].ToString();
 
-                    var vb = new VoteBusiness();
-                    var hvb = new HolderVoteBusiness();
+                    //var vb = new VoteBusiness();
+                    //var hvb = new HolderVoteBusiness();
 
                     if (id > 0)
-                        if (hvb.CountVoteByHolder(id) < vb.CountVoteIsActive())
+                    //if (hvb.CountVoteByHolder(id) < vb.CountVoteIsActive())
+                    {
+                        var frmDialog = new HolderVoteDialog { HolderId = id };
+                        var result = frmDialog.ShowDialog();
+                        if (result == DialogResult.OK)
                         {
-                            var frmDialog = new HolderVoteDialog { HolderId = id };
-                            var result = frmDialog.ShowDialog();
-                            if (result == DialogResult.OK)
+                            ReloadForm(txtSName.Text.Trim(), txtSCode.Text.Trim(), txtCmnd.Text.Trim());
+
+                            #region send message
+
+                            try
                             {
-                                ReloadForm();
-
-                                #region send message
-
-                                try
-                                {
-                                    _socket.SendTo(_data, _iep);
-                                }
-                                catch { }
-
-                                #endregion
+                                _socket.SendTo(_data, _iep);
                             }
+                            catch { }
+
+                            #endregion
                         }
-                        else
-                            MessageBox.Show("Cổ đông \"" + name + "\" đã biểu quyết hoàn tất.", "Thông báo",
-                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    //else
+                    //    MessageBox.Show("Cổ đông \"" + name + "\" đã biểu quyết hoàn tất.", "Thông báo",
+                    //        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch { }

@@ -36,6 +36,7 @@
             this.txtPass = new DevExpress.XtraEditors.TextEdit();
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
+            this.btnGetIp = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.txtIp.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtUser.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtPass.Properties)).BeginInit();
@@ -60,7 +61,7 @@
             // 
             // btnConnect
             // 
-            this.btnConnect.Location = new System.Drawing.Point(219, 12);
+            this.btnConnect.Location = new System.Drawing.Point(317, 3);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(75, 33);
             this.btnConnect.TabIndex = 2;
@@ -104,18 +105,28 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(219, 51);
+            this.btnCancel.Location = new System.Drawing.Point(317, 42);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 33);
             this.btnCancel.TabIndex = 7;
             this.btnCancel.Text = "Hủy";
             // 
+            // btnGetIp
+            // 
+            this.btnGetIp.Location = new System.Drawing.Point(226, 3);
+            this.btnGetIp.Name = "btnGetIp";
+            this.btnGetIp.Size = new System.Drawing.Size(75, 33);
+            this.btnGetIp.TabIndex = 8;
+            this.btnGetIp.Text = "Ip Server";
+            this.btnGetIp.Click += new System.EventHandler(this.btnGetIp_Click);
+            // 
             // frmConnect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(306, 100);
+            this.ClientSize = new System.Drawing.Size(403, 92);
             this.ControlBox = false;
+            this.Controls.Add(this.btnGetIp);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.txtPass);
             this.Controls.Add(this.labelControl3);
@@ -145,5 +156,6 @@
         private DevExpress.XtraEditors.TextEdit txtPass;
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.SimpleButton btnCancel;
+        private DevExpress.XtraEditors.SimpleButton btnGetIp;
     }
 }

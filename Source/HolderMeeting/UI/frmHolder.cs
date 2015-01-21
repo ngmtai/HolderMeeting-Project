@@ -27,6 +27,7 @@ namespace UI
         public frmHolder()
         {
             InitializeComponent();
+            panelControl4.AutoScroll = true;
         }
 
         #region function
