@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL", "BLL\BLL.csproj", "{7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{164ACF92-5FDF-4A89-AA67-6E926C148330}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "HolderMeeting", "HolderMeeting\HolderMeeting.vdproj", "{7B9F3941-85F0-43E6-89A3-A84B9EF024C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,8 @@ Global
 		{164ACF92-5FDF-4A89-AA67-6E926C148330}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{164ACF92-5FDF-4A89-AA67-6E926C148330}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{164ACF92-5FDF-4A89-AA67-6E926C148330}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B9F3941-85F0-43E6-89A3-A84B9EF024C8}.Debug|Any CPU.ActiveCfg = Debug
+		{7B9F3941-85F0-43E6-89A3-A84B9EF024C8}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
