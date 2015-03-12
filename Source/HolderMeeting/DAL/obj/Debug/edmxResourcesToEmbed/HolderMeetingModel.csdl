@@ -88,6 +88,9 @@
     <Property Name="CMND" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Company" Relationship="HolderMeetingModel.FK_Holder_Company" FromRole="Holder" ToRole="Company" />
     <NavigationProperty Name="Holder_Vote" Relationship="HolderMeetingModel.FK_Holder_Vote_Holder" FromRole="Holder" ToRole="Holder_Vote" />
+    <Property Name="WorkUnit" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Holder_Vote">
     <Key>

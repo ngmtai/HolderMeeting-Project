@@ -254,5 +254,140 @@ namespace UI
 
         #endregion
 
+        private void panelControl2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void groupControl1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void txtCMND_EditValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelControl9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblCode_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSName_EditValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelControl2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSCode_EditValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelControl1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelControl1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panelControl4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void gridHolder_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelControl3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void stTotal_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void tstt_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelControl3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelControl5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelControl6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTotalShare_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelControl7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblCreateDate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelControl4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void labelControl8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkIsConfirm_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtAuthorizerName_EditValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

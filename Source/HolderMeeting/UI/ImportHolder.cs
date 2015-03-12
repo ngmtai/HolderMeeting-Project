@@ -146,18 +146,21 @@ namespace UI
             decimal totalShare = 0;
             for (var i = 0; i < dt.Rows.Count; i++)
             {
-                var code = dt.Rows[i]["Code"] != null ? dt.Rows[i]["Code"].ToString() : string.Empty;
-                var authorizerName = dt.Rows[i]["AuthorizerName"] != null
-                    ? dt.Rows[i]["AuthorizerName"].ToString()
+                var code = dt.Rows[i]["Ma"] != null ? dt.Rows[i]["Ma"].ToString() : string.Empty;
+                var authorizerName = dt.Rows[i]["UyQUyen"] != null
+                    ? dt.Rows[i]["UyQUyen"].ToString()
                     : string.Empty;
                 var cmnd = dt.Rows[i]["cmnd"] != null
                     ? dt.Rows[i]["cmnd"].ToString()
                     : string.Empty;
-                var name = dt.Rows[i]["Name"] != null ? dt.Rows[i]["Name"].ToString() : string.Empty;
-                if (dt.Rows[i]["TotalShare"] != null &&
-                        !string.IsNullOrEmpty(dt.Rows[i]["TotalShare"].ToString()))
-                    totalShare = decimal.Parse(dt.Rows[i]["TotalShare"].ToString());
-               
+                var name = dt.Rows[i]["HoTen"] != null ? dt.Rows[i]["HoTen"].ToString() : string.Empty;
+                if (dt.Rows[i]["SLCoPhan"] != null &&
+                        !string.IsNullOrEmpty(dt.Rows[i]["SLCoPhan"].ToString()))
+                    decimal.TryParse(dt.Rows[i]["SLCoPhan"].ToString().Replace(",", ""), out  totalShare);
+                var workUnit = dt.Rows[i]["DVCT"] != null ? dt.Rows[i]["DVCT"].ToString() : string.Empty;
+                var address = dt.Rows[i]["DiaChi"] != null ? dt.Rows[i]["DiaChi"].ToString() : string.Empty;
+                var phone = dt.Rows[i]["DienThoai"] != null ? dt.Rows[i]["DienThoai"].ToString() : string.Empty;
+
                 if (!hb.CheckExist(code, name, authorizerName, totalShare, cmnd))
                     lstHolder.Add(new Holder
                     {
@@ -169,8 +172,11 @@ namespace UI
                         IsConfirm = false,
                         CompanyId = companyId,
                         CreateDate = DateTime.Now,
-                        CreateUser = "aBc",
-                        CMND = cmnd
+                        CreateUser = MyConstant.Config.IpAddress,
+                        CMND = cmnd,
+                        Phone = phone,
+                        Address = address,
+                        WorkUnit = workUnit
                     });
             }
 

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.mnMain = new System.Windows.Forms.MenuStrip();
             this.mniConnectMain = new System.Windows.Forms.ToolStripMenuItem();
             this.mniConnect = new System.Windows.Forms.ToolStripMenuItem();
@@ -169,6 +170,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(798, 361);
             this.Controls.Add(this.mnMain);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.mnMain;
             this.Name = "Main";

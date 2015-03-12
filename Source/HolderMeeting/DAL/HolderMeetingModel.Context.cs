@@ -22,8 +22,8 @@ namespace DAL
         {
         }
 
-        public HolderMeetingEntities(string connectionString)
-            : base(connectionString)
+        public HolderMeetingEntities(string connection)
+            : base(connection)
         {
         }
     

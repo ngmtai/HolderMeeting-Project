@@ -32,6 +32,9 @@ namespace DAL
         public Nullable<System.DateTime> UpdateDate { get; set; }
         public string UpdateUser { get; set; }
         public string CMND { get; set; }
+        public string WorkUnit { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
     
         public virtual Company Company { get; set; }
         public virtual ICollection<Holder_Vote> Holder_Vote { get; set; }

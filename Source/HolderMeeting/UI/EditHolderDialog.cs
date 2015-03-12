@@ -31,14 +31,17 @@ namespace UI
                 txtCode.Text = detail.Code;
                 txtName.Text = detail.Name;
                 txtCmnd.Text = detail.CMND;
-                if (detail.TotalShare != null) mtbShared.Text = detail.TotalShare.Value.ToString();
+                if (detail.TotalShare != null) numTotalShare.Text = detail.TotalShare.Value.ToString();
                 if (detail.IsConfirm != null) chkIsConfirm.Checked = detail.IsConfirm.Value;
+                txtWorkUnit.Text = detail.WorkUnit;
+                txtAddress.Text = detail.Address;
+                txtPhone.Text = detail.Phone;
             }
         }
 
         void ClearForm()
         {
-            mtbShared.Text = txtCmnd.Text = txtCode.Text = txtName.Text = string.Empty;
+            txtWorkUnit.Text = txtAddress.Text = txtPhone.Text = numTotalShare.Text = txtCmnd.Text = txtCode.Text = txtName.Text = string.Empty;
             chkIsConfirm.Checked = false;
         }
 
@@ -69,14 +72,14 @@ namespace UI
                 return;
             }
 
-            if (string.IsNullOrEmpty(mtbShared.Text))
+            if (string.IsNullOrEmpty(numTotalShare.Text))
             {
                 MessageBox.Show("Số lượng cổ phiếu không được bỏ trống", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             decimal totalShare;
-            decimal.TryParse(mtbShared.Text, out totalShare);
+            decimal.TryParse(numTotalShare.Text, out totalShare);
             if (totalShare <= 0)
             {
                 MessageBox.Show("Số lượng cổ phiếu phải > 0", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -101,7 +104,10 @@ namespace UI
                             TotalShare = totalShare,
                             IsActive = true,
                             IsConfirm = chkIsConfirm.Checked,
-                            CreateDate = DateTime.Now
+                            CreateDate = DateTime.Now,
+                            WorkUnit = txtWorkUnit.Text.Trim(),
+                            Address = txtAddress.Text.Trim(),
+                            Phone = txtPhone.Text.Trim()
                         }
                     };
                     var result = hb.Saves(lstHolder);
@@ -126,7 +132,10 @@ namespace UI
                     TotalShare = totalShare,
                     IsActive = true,
                     IsConfirm = chkIsConfirm.Checked,
-                    UpdateDate = DateTime.Now
+                    UpdateDate = DateTime.Now,
+                    WorkUnit = txtWorkUnit.Text.Trim(),
+                    Address = txtAddress.Text.Trim(),
+                    Phone = txtPhone.Text.Trim()
                 }))
                 {
                     MessageBox.Show("Sửa thông tin cổ đông thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.None);

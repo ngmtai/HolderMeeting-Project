@@ -26,6 +26,9 @@
     <Property Name="UpdateDate" Type="date" />
     <Property Name="UpdateUser" Type="nvarchar" MaxLength="100" />
     <Property Name="CMND" Type="nvarchar" MaxLength="20" />
+    <Property Name="WorkUnit" Type="nvarchar" MaxLength="300" />
+    <Property Name="Address" Type="nvarchar" MaxLength="300" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="Holder_Vote">
     <Key>
